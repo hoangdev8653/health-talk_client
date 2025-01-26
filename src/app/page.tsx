@@ -1,8 +1,11 @@
+import Banner from "./home/Banner";
+import Content from "@/app/home/Content";
 
 export default function Home() {
   return (
-    <div className="text-red-400">
-      <p>Hoàng đẹp trai</p>
+    <div>
+      <Banner />
+      <Content />
     </div>
   );
 }
