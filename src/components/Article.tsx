@@ -1,6 +1,7 @@
 import React from "react";
 import { CarouselItem } from "@/components/ui/carousel";
 import CarouselCustom from "@/components/Carousel";
+import Link from "next/link";
 const articles = [
   {
     id: 1,
@@ -60,7 +61,9 @@ function Article() {
       <CarouselCustom >
           {articles.map((article) => (
             <CarouselItem key={article.id} className="flex-shrink-0 basis-1/4">
-              <div className="border-2 border-gray-300  ">
+              <Link href={`http://localhost:3000/articles/${article.id}`}>
+            
+              <div  className="border-2 border-gray-300  ">
                 <img
                   className="object-cover w-full h-[180px]"
                   src={article.image}
@@ -79,6 +82,7 @@ function Article() {
                   </div>
                 </div>
               </div>
+              </Link>
             </CarouselItem>
           ))}
         {/* </div> */}
