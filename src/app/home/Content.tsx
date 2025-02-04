@@ -35,9 +35,9 @@ function Content() {
     },
   ];
   return (
-    <div >
+    <div className="w-4/5 mx-auto">
       <Article />
-      <div className="max-w-[1215px] mx-auto">
+      <div >
         {articles.map((item: Article, index: number) => (
           <div
             key={item.id}

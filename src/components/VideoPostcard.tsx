@@ -2,7 +2,7 @@ import React from "react";
 import VideoThemnail from "./VideoThemnail";
 function VideoPostcard() {
   return (
-    <div className="w-[360px] h-[225px]  relative">
+    <div className="w-full relative">
       <img
         className="w-full h-full object-cover"
         src="https://www.ladiesofvietnam.net/wp-content/uploads/2020/09/%C4%90AU-KH%E1%BB%94-V%C3%8C-T%C3%8CNH.jpg"

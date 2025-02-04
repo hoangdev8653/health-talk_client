@@ -57,10 +57,10 @@ const articles = [
 
 function Article() {
   return (
-    <div className="my-8 max-w-7xl mx-auto">
+    <div className="my-8 w-full mx-auto">
       <CarouselCustom >
           {articles.map((article) => (
-            <CarouselItem key={article.id} className="flex-shrink-0 basis-1/4">
+            <CarouselItem key={article.id} className="flex-shrink-0 basis-1/4 tablet:basis-1/2">
               <Link href={`http://localhost:3000/articles/${article.id}`}>
             
               <div  className="border-2 border-gray-300  ">

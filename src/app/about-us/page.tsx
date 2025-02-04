@@ -4,15 +4,15 @@ import GoogleMapComponent from "@/components/GoogleMap";
 
 function AboutUs() {
   return (
-    <div className="max-w-7xl mx-auto my-12">
+    <div className="w-4/5 mx-auto my-12">
       <h1
         style={{ textShadow: "0em 0.1em 0.1em rgba(0,0,0,0.4)" }}
         className="text-black font-medium text-3xl my-4 "
       >
         Về Chúng Tôi
       </h1>
-      <div className="flex w-full gap-12">
-        <div className="max-w-[65%] text-xl">
+      <div className="flex w-full gap-12 tablet:block">
+        <div className="w-[65%] text-base tablet:w-full md:text-xl ">
           <p className="w-full my-4">Bạn đọc thân mến!</p>
           <p className="pb-4 leading-relaxed">
             Dù bạn là ai, sống ở thành thị hay nông thôn, trẻ hay già, đã lập
@@ -76,9 +76,9 @@ function AboutUs() {
             Hotline tư vấn: 0899344478
           </p>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 tablet:w-full ">
           <img
-            className="w-[360px] h-[260px] object-cover"
+            className="w-[360px] h-[260px] object-cover tablet:w-full"
             src="https://www.ladiesofvietnam.net/wp-content/uploads/2021/06/Counselling-Room.jpg"
             alt="1"
           />
@@ -91,7 +91,7 @@ function AboutUs() {
             </div>
           </div>
           <img
-            className="w-[360px] h-[260px] object-cover"
+            className="w-[360px] h-[260px] object-cover tablet:w-full"
             src="https://www.ladiesofvietnam.net/wp-content/uploads/2021/06/Reception.jpg"
             alt="2"
           />
