@@ -4,7 +4,7 @@ import "./globals.css";
 import Footer from "@/templates/footer/page";
 import Header from "@/templates/header/page";
 import BackToTop from "@/components/BackToTop";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import ProviderWrapper from "./providers/providerWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,17 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ProviderWrapper>
           <Header />
           {children}
           <Footer />
           <BackToTop />
-        </ThemeProvider>
+        </ProviderWrapper>
       </body>
     </html>
   );

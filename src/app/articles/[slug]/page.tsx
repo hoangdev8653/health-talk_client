@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import CommentArticles from "@/components/CommentArticles";
+import Image from "next/image";
 const ArticleDetail: React.FC = () => {
   const [sort, setSort] = useState<string>("newest");
 
@@ -11,7 +12,7 @@ const ArticleDetail: React.FC = () => {
   const slug = pathname.split("/").pop();
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto my-10">
+      <div className="w-4/5 mx-auto my-10">
         <p
           style={{ textShadow: "0em 0.1em 0.1em rgba(0,0,0,0.4)" }}
           className=" font-medium text-3xl my-4 "
@@ -19,19 +20,17 @@ const ArticleDetail: React.FC = () => {
           {slug}
         </p>
         <div className="my-8 w-full">
-          <img
-            className="w-full h-[550px] object-cover"
-            src="https://www.ladiesofvietnam.net/wp-content/uploads/2024/02/GIAO-TIEP-TRONG-TINH-YEU-1.jpg"
-          />
+          <img className="w-full  object-cover" src="https://www.ladiesofvietnam.net/wp-content/uploads/2024/02/GIAO-TIEP-TRONG-TINH-YEU-1.jpg"/>
+          {/* <Image className="w-full object-cover" width={200} height={550} src="https://www.ladiesofvietnam.net/wp-content/uploads/2024/02/GIAO-TIEP-TRONG-TINH-YEU-1.jpg"/> */}
         </div>
-        <div className="flex gap-4">
-          <div className="w-[65%]">
-            <p className="my-4 text-xl font-bold leading-relaxed pb-4">
+        <div className="flex gap-4 tablet:block">
+          <div className="w-[65%] tablet:w-full">
+            <p className="my-4 md:text-xl text-sm font-bold leading-relaxed pb-4">
               Hãy nhắm mắt lại, thư giãn, và buông bỏ những nhọc nhằn để cảm xúc
               được nâng niu lên tiếng cùng với các chương trình Radio của Ladies
               of Việt Nam.
             </p>
-            <p className="my-4 leading-relaxed text-xl pb-4">
+            <p className="my-4 leading-relaxed md:text-xl text-sm pb-4">
               Chắc hẳn trong cuộc sống bồn bề, bản thân mỗi người phụ nữ phải
               đảm nhận rất nhiều những vai trò, bổn phận và trách nhiệm khác
               nhau. Hạnh phúc đàn bà tưởng đến rồi đi chẳng ai định nghĩa được.
@@ -41,13 +40,13 @@ const ArticleDetail: React.FC = () => {
               những tâm tình, tuế nguyệt trơ gan thì cũng có lúc phải rã rời với
               những tao đoạn của cuộc đời ồn ã.
             </p>
-            <p className="my-4 leading-relaxed text-xl pb-4">
+            <p className="my-4 leading-relaxed md:text-xl text-sm pb-4">
               Radio Ladies of Việt Nam sẽ là nơi để phụ nữ được thư giãn sau
               những ngày dài làm việc vất vả, là nơi để phụ nữ gửi gắm niềm tin
               cùng tâm tình vào những mẩu chuyện. Hãy nhắm mắt lại, thư giãn, và
               buông bỏ những nhọc nhằn để cảm xúc được nâng niu lên tiếng.
             </p>
-            <p className="my-4 leading-relaxed text-xl pb-4">
+            <p className="my-4 leading-relaxed md:text-xl text-sm pb-4">
               Đừng ngần ngại kết nối với chúng tôi, chia sẻ những chủ đề mà các
               bạn quan tâm và muốn lắng nghe. Để Ladies of Việt Nam hân hạnh là
               nhịp cầu nối những nỗi niềm thầm kín giữa những độc giả với nhau
@@ -101,10 +100,10 @@ const ArticleDetail: React.FC = () => {
             <CommentArticles/>
             <CommentArticles/>
             <CommentArticles/>
-            <div className="border-b-2 border-solid border-gray-300 opacity-70"></div>
+            <div className="border-b-2 border-solid border-gray-300 opacity-70 my-4"></div>
 
           </div>
-          <div className="flex-1">
+          <div className="flex-1 tablet:w-full">
             <div className=" justify-center items-center">
               <img
                 className="w-[360px] h-[360px] mx-auto"

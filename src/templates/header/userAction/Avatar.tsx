@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+// import {} from "@/stores/thunks/user"
 
 function Avatar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(true);
+  const [user1, setUser] = useState(true);
+  const dataUser = JSON.parse(localStorage.getItem("user"));
+  const user = useAppSelector((state) => state.user);
+  console.log(user);
 
   const handleAvartaHover = () => setIsOpen(true);
   const handleAvartaLeave = () => setIsOpen(false);
@@ -26,7 +31,7 @@ function Avatar() {
             alt="avatar"
           />
         </a>
-        {user && isOpen && (
+        {user1 && isOpen && (
           <div className="absolute z-50  right-[-40px] w-40 p-2 bg-gray-800">
             <a href="/profile">
               <p className="text-white font-semibold hover:bg-gray-400 cursor-pointer m-1 text-lg">
@@ -35,7 +40,7 @@ function Avatar() {
             </a>
             <a href="/post">
               <p className="text-white font-semibold cursor-pointer border-b border-gray-400 hover:bg-gray-400 text-lg m-1">
-               Đăng bài viết
+                Đăng bài viết
               </p>
             </a>
             <div>

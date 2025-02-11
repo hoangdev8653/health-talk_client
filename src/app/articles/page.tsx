@@ -1,7 +1,17 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+} from "@/stores/slices/counterSlice";
 
-function Page() {
+function Articles() {
+  const dispatch = useAppDispatch();
+  const count = useAppSelector((state) => state.counter.value);
+
   return (
     <div className="w-4/5 mx-auto my-8">
       <h1 className="text-black font-medium text-3xl my-4">Bài Viết</h1>
@@ -55,8 +65,30 @@ function Page() {
           </div>
         </div>
       </div>
+
+      <div className="p-4 border rounded-lg text-center">
+        <h1 className="text-2xl font-bold">Counter: {count}</h1>
+        <button
+          className="p-2 bg-blue-500 text-white m-2"
+          onClick={() => dispatch(increment())}
+        >
+          +
+        </button>
+        <button
+          className="p-2 bg-red-500 text-white m-2"
+          onClick={() => dispatch(decrement())}
+        >
+          -
+        </button>
+        <button
+          className="p-2 bg-green-500 text-white m-2"
+          onClick={() => dispatch(incrementByAmount(5))}
+        >
+          +5
+        </button>
+      </div>
     </div>
   );
 }
 
-export default Page;
+export default Articles;
