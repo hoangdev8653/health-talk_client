@@ -1,35 +1,62 @@
 import axios from "axios";
+import { BASE_URL_LOCAL } from "@/utils/constant";
+import { getLocalStorage, setLocalStorage } from "@/lib/localStorage";
 
-const axiosInstance = axios.create({
-  // baseURL: process.env.BASE_URL_LOCAL,http://localhost:3000
-  baseURL: "http://localhost:3007",
-  timeout: 1000,
-  headers: { "Content-Type": "application/json" },
+export const axiosConfig = axios.create({
+  baseURL: BASE_URL_LOCAL,
 });
 
-axiosInstance.interceptors.request.use(
+axiosConfig.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = getLocalStorage("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
   function (error) {
+    console.log(error.message);
     return Promise.reject(error);
   }
 );
 
-axiosInstance.interceptors.response.use(
-  function (response) {
-    return response.data;
-  },
-  function (error) {
-    if (error.response && error.response.status === 401) {
-      console.error("Unauthorized, logging out...");
+axiosConfig.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const refreshToken = getLocalStorage("refreshToken");
+        if (!refreshToken) {
+          console.error("Refresh token is missing");
+          window.location.href = "/login";
+          return Promise.reject(error);
+        }
+        const response = await axios.post(
+          "http://localhost:3007/user/refreshToken",
+          {
+            refreshToken,
+          }
+        );
+        console.log("refreshToken: ", response);
+
+        const accessToken = response.data?.newToken?.accessToken;
+        if (!accessToken) {
+          console.error("accessToken token is missing");
+          return Promise.reject(error);
+        }
+        setLocalStorage("accessToken", accessToken);
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return axios(originalRequest);
+      } catch (error: any) {
+        console.log(error.message);
+        console.log("Không thể đọc accessToken");
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
     }
+
     return Promise.reject(error);
   }
 );
-
-export default axiosInstance;

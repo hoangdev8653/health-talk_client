@@ -1,58 +1,58 @@
-import React from "react";
-import {
-  CarouselItem,
-} from "@/components/ui/carousel";
-import CarouselCustom from "@/components/Carousel";
+"use client";
 
-type Article = { 
-    id: number; 
-    title: string; 
-    content: string; 
-    image: string; 
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { getAllBannerThunk } from "@/stores/thunks/banner";
+import Image from "next/image";
+import CustomSlider from "@/components/CustomSlider";
+
+type Article = {
+  id: string;
+  title: string;
+  image: string;
 };
 
 function Banner() {
-    const articles : Article[]= [
-        {
-          id: 1,
-          title: "Bài viết 1",
-          content: "Nội dung bài viết 1",
-          image: "https://ladiesofvietnam.net/wp-content/uploads/2018/09/DSC07868-Edit.jpg",
-        },
-        {
-          id: 2,
-          title: "Bài viết 2",
-          content: "Nội dung bài viết 2",
-          image: "/images/artist_example.jpg",
-        },
-        {
-          id: 3,
-          title: "Bài viết 3",
-          content: "Nội dung bài viết 3",
-          image: "/images/artist_example.jpg",
-        },
-        {
-          id: 4,
-          title: "Bài viết 4",
-          content: "Nội dung bài viết 4",
-          image: "/images/artist_example.jpg",
-        },
-      ];
+  const dispatch = useAppDispatch();
+  const { data } = useAppSelector((state) => state.banner);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(getAllBannerThunk());
+  }, []);
+
   return (
-    <div className="w-full h-[500px] overflow-hidden">
-     <CarouselCustom className="w-full h-full" buttonMove={true}>
-        {articles.map((article: Article, index : number) => (
-          <CarouselItem key={index} className="flex-shrink-0">
-            <div className="p-0 m-0 ">
-              <img
-                src={article.image}
-                alt={`Slide ${article.id}`}
-                className="w-screen h-full object-fill "
+    <div className="w-full h-[600px] overflow-hidden">
+      <CustomSlider
+        autoPlayTime={5000}
+        autoPlay={false}
+        className="w-full h-full"
+        buttonMove={true}
+        onSlideChange={setCurrentIndex}
+      >
+        {data &&
+          data?.data?.content?.map((item: Article, index: number) => (
+            <div key={index} className="p-0 m-0 relative">
+              <Image
+                width={1920}
+                height={800}
+                src={item.image}
+                alt={item.id}
+                className="w-full h-[600px] object-cover"
+                style={{ objectPosition: "center" }}
               />
+              <div
+                className={`absolute z-50 top-72  animate-fade-in ${
+                  index % 2 == 0 ? "right-20" : "left-20"
+                }`}
+              >
+                <h1 className="text-red-500 text-4xl font-bold ">
+                  {item.title}
+                </h1>
+              </div>
             </div>
-          </CarouselItem>
-        ))}
-     </CarouselCustom>
+          ))}
+      </CustomSlider>
     </div>
   );
 }

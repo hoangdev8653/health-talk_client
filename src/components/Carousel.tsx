@@ -25,9 +25,9 @@ const CarouselCustom: React.FC<CarouselProps> = ({
     <div className={`relative ${className}`}>
       <Carousel
         plugins={[
-          // Autoplay({
-          //   delay: 4000,
-          // }),
+          Autoplay({
+            delay: 4000,
+          }),
         ]}
         className="relative w-full h-full overflow-hidden"
       >

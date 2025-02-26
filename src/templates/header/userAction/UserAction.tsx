@@ -1,14 +1,14 @@
 import React from "react";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import Avatar from "./Avatar";
-import Language from "./Language";
+import Notification from "./Notification";
 
 function UserAction() {
   return (
     <div className="flex gap-4 items-center cursor-pointer tablet:hidden">
-      <ThemeSwitch/>
-      <Avatar/>
-      <Language/>
+      <ThemeSwitch />
+      <Avatar />
+      <Notification />
     </div>
   );
 }

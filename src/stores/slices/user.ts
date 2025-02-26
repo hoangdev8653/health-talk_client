@@ -19,7 +19,7 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem("user");
+      localStorage.clear();
     },
   },
   extraReducers: (builder) => {
@@ -43,7 +43,18 @@ const userSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        localStorage.setItem("user", JSON.stringify(action.payload));
+        localStorage.setItem(
+          "user",
+          JSON.stringify(action.payload.data.content)
+        );
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(action.payload.data.accessToken)
+        );
+        localStorage.setItem(
+          "refreshToken",
+          JSON.stringify(action.payload.data.refreshToken)
+        );
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;

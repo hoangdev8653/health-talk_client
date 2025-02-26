@@ -1,65 +1,54 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Article from "@/components/Article";
-type Article = {
-  id: number;
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { getAllPostcardThunk } from "@/stores/thunks/postcard";
+
+interface postcardData {
   title: string;
-  content: string;
+  id: string;
+  video_url: string;
   image: string;
-};
+  decription: string;
+}
+
 function Content() {
-  const articles = [
-    {
-      id: 1,
-      title: "Bài viết 1",
-      content: "Nội dung bài viết 1",
-      image: "/images/artist_example.jpg",
-    },
-    {
-      id: 2,
-      title: "Bài viết 2",
-      content: "Nội dung bài viết 2",
-      image: "/images/artist_example.jpg",
-    },
-    {
-      id: 3,
-      title: "Bài viết 3",
-      content: "Nội dung bài viết 3",
-      image: "/images/artist_example.jpg",
-    },
-    {
-      id: 4,
-      title: "Bài viết 4",
-      content: "Nội dung bài viết 4",
-      image: "/images/artist_example.jpg",
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { data, loading } = useAppSelector((state) => state.postcard);
+
+  useEffect(() => {
+    dispatch(getAllPostcardThunk());
+  }, [dispatch]);
+
   return (
     <div className="w-4/5 mx-auto">
       <Article />
-      <div >
-        {articles.map((item: Article, index: number) => (
+      <div>
+        {data.data?.content?.map((item: postcardData, index: number) => (
           <div
             key={item.id}
             className={`flex items-center gap-4 ${
               index % 2 === 0 ? "flex-row" : "flex-row-reverse"
             }`}
           >
-            <div className="w-1/2 relative group">
+            <div
+              className={`w-1/2 relative group ${
+                index % 2 !== 0 ? "ml-auto" : "mr-auto"
+              }`}
+            >
               <Image
                 width={360}
                 height={225}
                 src={item.image}
                 alt={item.title}
-                className="object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
+                className="my-4 w-full h-full object-cover "
               />
-              <div className="absolute bottom-20 left-8 text-white text-2xl font-semibold opacity-0 group-hover:opacity-100 transition-opacity  z-20">
-                Tư vấn tâm lý 1 - 1
-              </div>
             </div>
             <div className="w-1/2 text-center">
               <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
-              <p className="text-gray-700">{item.content}</p>
+              <p className="text-gray-700">{item.decription}</p>
             </div>
           </div>
         ))}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import VideoPostcard from "@/components/VideoPostcard";
+
 function Postcard() {
   return (
     <div className="w-full">
@@ -74,14 +75,15 @@ function Postcard() {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-8 my-4 tablet:grid-cols-1 ">
-          <div className="tablet:mx-auto w-full">
+          {/* <div className="tablet:mx-auto w-full">
+            <VideoPostcard />
+          </div> */}
           <VideoPostcard />
-          </div>
+          {/* <VideoPostcard />
           <VideoPostcard />
           <VideoPostcard />
           <VideoPostcard />
-          <VideoPostcard />
-          <VideoPostcard />
+          <VideoPostcard /> */}
         </div>
       </div>
     </div>

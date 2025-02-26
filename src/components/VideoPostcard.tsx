@@ -1,16 +1,44 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import VideoThemnail from "./VideoThemnail";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { getAllPostcardThunk } from "@/stores/thunks/postcard";
+
+interface postcardData {
+  title: string;
+  id: string;
+  video_url: string;
+  image: string;
+}
+
 function VideoPostcard() {
+  const dispacth = useAppDispatch();
+  const { data, loading } = useAppSelector((state) => state.postcard);
+
+  useEffect(() => {
+    dispacth(getAllPostcardThunk());
+  }, [dispacth]);
+
   return (
-    <div className="w-full relative">
-      <img
-        className="w-full h-full object-cover"
-        src="https://www.ladiesofvietnam.net/wp-content/uploads/2020/09/%C4%90AU-KH%E1%BB%94-V%C3%8C-T%C3%8CNH.jpg"
-        alt="video1"
-      />
-     
-      <VideoThemnail className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
-    </div>
+    <>
+      {data &&
+        data.data?.content?.map((item: postcardData, index: number) => (
+          <div key={index} className="w-full relative">
+            <img
+              className="w-full h-full object-cover"
+              src={item.image}
+              alt={item.id}
+            />
+            <VideoThemnail
+              className="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              source_url={item.video_url}
+            />
+            <div className="absolute bottom-3 left-0 right-0 bg-black bg-opacity-50 p-2 text-center">
+              <h3 className="text-white text-xs font-semibold">{item.title}</h3>
+            </div>
+          </div>
+        ))}
+    </>
   );
 }
 

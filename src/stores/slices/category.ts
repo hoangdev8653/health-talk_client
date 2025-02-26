@@ -8,7 +8,7 @@ interface CategoryState {
 }
 
 const initialState: CategoryState = {
-  data: null,
+  data: { content: [] },
   loading: false,
   error: null,
 };
@@ -26,6 +26,7 @@ const categorySlice = createSlice({
       .addCase(getAllCategoryThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        // console.log(state.data);
       })
       .addCase(getAllCategoryThunk.rejected, (state, action) => {
         state.loading = false;

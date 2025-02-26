@@ -58,12 +58,14 @@ const articles = [
 function Article() {
   return (
     <div className="my-8 w-full mx-auto">
-      <CarouselCustom >
-          {articles.map((article) => (
-            <CarouselItem key={article.id} className="flex-shrink-0 basis-1/4 tablet:basis-1/2">
-              <Link href={`http://localhost:3000/articles/${article.id}`}>
-            
-              <div  className="border-2 border-gray-300  ">
+      <CarouselCustom>
+        {articles.map((article) => (
+          <CarouselItem
+            key={article.id}
+            className="flex-shrink-0 basis-1/4 tablet:basis-1/2"
+          >
+            <Link href={`http://localhost:3000/home/${article.id}`}>
+              <div className="border-2 border-gray-300  ">
                 <img
                   className="object-cover w-full h-[180px]"
                   src={article.image}
@@ -82,9 +84,9 @@ function Article() {
                   </div>
                 </div>
               </div>
-              </Link>
-            </CarouselItem>
-          ))}
+            </Link>
+          </CarouselItem>
+        ))}
         {/* </div> */}
       </CarouselCustom>
     </div>

@@ -1,8 +1,7 @@
-import axiosInstance from "@/lib/axiosInstance";
-// import {} from "@/types/"
+import { axiosConfig } from "@/lib/axiosInstance";
 
 export const getAllCategoryApi = async () => {
-  return await axiosInstance({
+  return await axiosConfig({
     method: "get",
     url: "/categories",
   });

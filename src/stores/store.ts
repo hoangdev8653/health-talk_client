@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "@/stores/slices/counterSlice";
 import UserReducer from "@/stores/slices/user";
 import CategoryReducer from "@/stores/slices/category";
+import PostcardReducer from "@/stores/slices/postcard";
+import BannerReducer from "@/stores/slices/banner";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     user: UserReducer,
     category: CategoryReducer,
+    postcard: PostcardReducer,
+    banner: BannerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

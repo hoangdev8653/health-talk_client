@@ -1,91 +1,47 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-} from "@/stores/slices/counterSlice";
+import { getAllCategoryThunk } from "@/stores/thunks/category";
+import Link from "next/link";
+
+type category = {
+  name: string;
+  image: string;
+  id: string;
+};
 
 function Articles() {
   const dispatch = useAppDispatch();
-  const count = useAppSelector((state) => state.counter.value);
+  const { data } = useAppSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(getAllCategoryThunk());
+  }, []);
+
+  console.log(data);
 
   return (
     <div className="w-4/5 mx-auto my-8">
       <h1 className="text-black font-medium text-3xl my-4">Bài Viết</h1>
       <div className="grid grid-cols-3 gap-8 tablet:grid-cols-1">
-        <div className="relative overflow-hidden my-4">
-          <Image
-            className="w-full object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
-            width={360}
-            height={225}
-            src="/images/artist_example.jpg"
-            alt="logo"
-          />
-          <div className="absolute w-[360px]  top-1/2 text-center">
-            <p className="text-white font-medium text-2xl">Sức Khỏe</p>
-          </div>
-        </div>
-        <div className="relative overflow-hidden  my-4">
-          <Image
-            className="w-full object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
-            width={360}
-            height={225}
-            src="/images/artist_example.jpg"
-            alt="logo"
-          />
-          <div className="absolute w-[360px]  top-1/2 text-center">
-            <p className="text-white font-medium text-2xl">Sức Khỏe</p>
-          </div>
-        </div>
-        <div className="relative overflow-hidden  my-4">
-          <Image
-            className="w-full object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
-            width={360}
-            height={225}
-            src="/images/artist_example.jpg"
-            alt="logo"
-          />
-          <div className="absolute w-[360px] top-1/2 text-center">
-            <p className="text-white font-medium text-2xl">Sức Khỏe</p>
-          </div>
-        </div>
-        <div className="relative overflow-hidden  my-4">
-          <Image
-            className="w-full object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
-            width={360}
-            height={225}
-            src="/images/artist_example.jpg"
-            alt="logo"
-          />
-          <div className="absolute w-[360px]  top-1/2 text-center">
-            <p className="text-white font-medium text-2xl">Sức Khỏe</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4 border rounded-lg text-center">
-        <h1 className="text-2xl font-bold">Counter: {count}</h1>
-        <button
-          className="p-2 bg-blue-500 text-white m-2"
-          onClick={() => dispatch(increment())}
-        >
-          +
-        </button>
-        <button
-          className="p-2 bg-red-500 text-white m-2"
-          onClick={() => dispatch(decrement())}
-        >
-          -
-        </button>
-        <button
-          className="p-2 bg-green-500 text-white m-2"
-          onClick={() => dispatch(incrementByAmount(5))}
-        >
-          +5
-        </button>
+        {data &&
+          data?.data?.content?.map((item: category, index: number) => (
+            <div key={index} className="relative overflow-hidden my-4">
+              <Link href={`http://localhost:3000/articles/${item.slug}`}>
+                <Image
+                  className="cursor-pointer w-full h-[225px] object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
+                  width={360}
+                  height={225}
+                  src={item.image}
+                  alt={item.id}
+                />
+                <div className="absolute w-[360px] top-1/2 text-center">
+                  <p className="text-white font-medium text-2xl">{item.name}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
       </div>
     </div>
   );
