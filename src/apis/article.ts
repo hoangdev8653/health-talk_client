@@ -8,9 +8,34 @@ export const getAllArticle = async () => {
   });
 };
 
-export const createArticle = async (data: createArticleType) => {
-  console.log(data);
+export const getArticesByCategory = async (categoryId: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `/article/byCategory?id=${categoryId}`,
+  });
+};
 
+export const getAllArticleBySlugCategory = async (slug: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `/article/byCategory/${slug}`,
+  });
+};
+
+export const getArticleById = async (articleId: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `/article/byId?id=${articleId}`,
+  });
+};
+
+export const getArticleBySlug = async (slug: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `/article/${slug}`,
+  });
+};
+export const createArticle = async (data: createArticleType) => {
   return await axiosConfig({
     method: "post",
     url: "/article/create",

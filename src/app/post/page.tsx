@@ -19,15 +19,25 @@ const mdParser = new MarkdownIt();
 
 const PostEditor: React.FC = () => {
   const [title, setTitle] = useState<string>("");
-  const [categoryId, setCategoryId] = useState<string>("Sức Khỏe");
+  const [categoryId, setCategoryId] = useState<string>("Tập luyện và thể thao");
   const [image, setImage] = useState<string | null>(null);
   const [markdown, setMarkdown] = useState<string>("");
   const dispatch = useAppDispatch();
-  const { data, error, loading } = useAppSelector((state) => state.category);
+  const category = useAppSelector((state) => state.category);
+  const article = useAppSelector((state) => state.article);
 
   useEffect(() => {
     dispatch(getAllCategoryThunk());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (article.data || article.error) {
+      setTitle("");
+      setCategoryId("Chăm sóc giấc ngủ");
+      setImage(null);
+      setMarkdown("");
+    }
+  }, [article.data, article.error]);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -50,13 +60,12 @@ const PostEditor: React.FC = () => {
     if (file) {
       formData.append("image", file);
     }
-
     dispatch(createArticleThunk(formData));
   };
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded mt-2">
-      {loading ? (
+      {category.loading || article.loading ? (
         <Loading />
       ) : (
         <>
@@ -80,8 +89,8 @@ const PostEditor: React.FC = () => {
               onChange={(e) => setCategoryId(e.target.value)}
               className="border p-2 w-full mb-4 bg-white text-black"
             >
-              {data &&
-                data.data?.content?.map(
+              {category.data &&
+                category.data.data?.content?.map(
                   (item: categoryValue, index: number) => (
                     <option key={index} value={item.id}>
                       {item.name}
@@ -123,7 +132,7 @@ const PostEditor: React.FC = () => {
 
             <button
               type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
             >
               Đăng bài
             </button>

@@ -22,8 +22,7 @@ function Login() {
     resolver: yupResolver(userValidate.login),
   });
 
-  const onSubmit = async (data) => {
-    // console.log("Dữ liệu form:", data);
+  const onSubmit = async (data: any) => {
     const result = await dispatch(loginThunk(data));
     if (result.type === "user/dang-nhap/fulfilled") {
       router.push("/");

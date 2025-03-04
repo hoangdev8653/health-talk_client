@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllBannerThunk } from "@/stores/thunks/banner";
 import Image from "next/image";
 import CustomSlider from "@/components/CustomSlider";
+import Slider from "react-slick";
 
 type Article = {
   id: string;
@@ -17,19 +18,29 @@ function Banner() {
   const { data } = useAppSelector((state) => state.banner);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
+  var settings = {
+    infinite: true,
+    speed: 500,
+    auto: true,
+    autoplaySpeed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   useEffect(() => {
     dispatch(getAllBannerThunk());
   }, []);
 
   return (
     <div className="w-full h-[600px] overflow-hidden">
-      <CustomSlider
+      {/* <CustomSlider
         autoPlayTime={5000}
         autoPlay={false}
         className="w-full h-full"
         buttonMove={true}
         onSlideChange={setCurrentIndex}
-      >
+      > */}
+      <Slider {...settings}>
         {data &&
           data?.data?.content?.map((item: Article, index: number) => (
             <div key={index} className="p-0 m-0 relative">
@@ -52,7 +63,8 @@ function Banner() {
               </div>
             </div>
           ))}
-      </CustomSlider>
+      </Slider>
+      {/* </CustomSlider> */}
     </div>
   );
 }

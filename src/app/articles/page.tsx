@@ -19,8 +19,6 @@ function Articles() {
     dispatch(getAllCategoryThunk());
   }, []);
 
-  console.log(data);
-
   return (
     <div className="w-4/5 mx-auto my-8">
       <h1 className="text-black font-medium text-3xl my-4">Bài Viết</h1>
