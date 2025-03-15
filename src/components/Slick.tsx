@@ -5,19 +5,21 @@ interface Props {
   children?: React.ReactNode;
   slidesToShow: number;
   slidesToScroll: number;
+  autoPlay?: boolean;
 }
 
 export default function SimpleSlider({
   children,
   slidesToShow = 4,
   slidesToScroll = 2,
+  autoPlay,
 }: Props) {
   var settings = {
     infinite: true,
     speed: 500,
     slidesToShow: slidesToShow,
     slidesToScroll: slidesToScroll,
-    autoplay: true,
+    autoplay: autoPlay,
     autoplaySpeed: 5000,
     responsive: [
       {

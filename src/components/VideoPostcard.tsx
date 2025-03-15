@@ -11,18 +11,15 @@ interface postcardData {
   image: string;
 }
 
-function VideoPostcard() {
-  const dispacth = useAppDispatch();
-  const { data, loading } = useAppSelector((state) => state.postcard);
+type dataPostcard = {
+  data: any;
+};
 
-  useEffect(() => {
-    dispacth(getAllPostcardThunk());
-  }, [dispacth]);
-
+function VideoPostcard(value: dataPostcard) {
   return (
     <>
-      {data &&
-        data.data?.content?.map((item: postcardData, index: number) => (
+      {value &&
+        value.data?.data?.content?.map((item: postcardData, index: number) => (
           <div key={index} className="w-full relative">
             <img
               className="w-full h-full object-cover"

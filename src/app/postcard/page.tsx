@@ -1,9 +1,22 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import VideoPostcard from "@/components/VideoPostcard";
+import ArticlePreviewBanner from "@/components/ArticlePreviewBanner";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { getAllPostcardThunk } from "@/stores/thunks/postcard";
 
 function Postcard() {
+  const dispacth = useAppDispatch();
+  const { data, loading } = useAppSelector((state) => state.postcard);
+
+  // console.log(data);
+
+  useEffect(() => {
+    dispacth(getAllPostcardThunk());
+  }, [dispacth]);
   return (
     <div className="w-full">
       <div className="w-4/5 mx-auto my-10">
@@ -72,18 +85,11 @@ function Postcard() {
                 <FaYoutube className="text-4xl text-white" />
               </div>
             </div>
+            {/* <ArticlePreviewBanner data={data} /> */}
           </div>
         </div>
         <div className="grid grid-cols-3 gap-8 my-4 tablet:grid-cols-1 ">
-          {/* <div className="tablet:mx-auto w-full">
-            <VideoPostcard />
-          </div> */}
-          <VideoPostcard />
-          {/* <VideoPostcard />
-          <VideoPostcard />
-          <VideoPostcard />
-          <VideoPostcard />
-          <VideoPostcard /> */}
+          <VideoPostcard data={data} />
         </div>
       </div>
     </div>

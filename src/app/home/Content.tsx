@@ -6,7 +6,6 @@ import Article from "@/components/Article";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllPostcardThunk } from "@/stores/thunks/postcard";
 import { getAllArticleThunk } from "@/stores/thunks/article";
-import SimpleSlider from "@/components/Slick";
 
 interface postcardData {
   title: string;
@@ -28,9 +27,7 @@ function Content() {
 
   return (
     <div className="w-4/5 mx-auto">
-      {/* <SimpleSlider slidesToScroll={1} slidesToShow={1}> */}
-      <Article data={article.data} itemToShow={4} />
-      {/* </SimpleSlider> */}
+      <Article data={article.allArticles} itemToShow={4} />
       <div>
         {postcard.data.data?.content?.map(
           (item: postcardData, index: number) => (

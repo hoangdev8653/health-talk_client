@@ -7,17 +7,26 @@ import {
   getAllArticleBySlugCategoryThunk,
 } from "@/stores/thunks/article";
 import { createSlice } from "@reduxjs/toolkit";
+import { setLocalStorage } from "@/lib/localStorage";
 
 interface ArticleState {
   data: any;
+  allArticles: any;
+  articleDetail: any;
   loading: boolean;
   error: string | null;
+  comment: any[];
+  likes: number;
 }
 
 const initialState: ArticleState = {
   data: null,
+  allArticles: [],
+  articleDetail: null,
   loading: false,
   error: null,
+  comment: [],
+  likes: 0,
 };
 
 const articleSlice = createSlice({
@@ -32,7 +41,7 @@ const articleSlice = createSlice({
       })
       .addCase(getAllArticleThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.allArticles = action.payload;
       })
       .addCase(getAllArticleThunk.rejected, (state, action) => {
         state.loading = false;
@@ -78,7 +87,10 @@ const articleSlice = createSlice({
       })
       .addCase(getArticleBySlugThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.articleDetail = action.payload.data.content;
+        state.comment = action.payload.data.comment;
+        state.likes = action.payload.data.like.length;
+        setLocalStorage("totalLikes", action.payload.data.like.length);
       })
       .addCase(getArticleBySlugThunk.rejected, (state, action) => {
         state.loading = false;

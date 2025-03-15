@@ -39,10 +39,11 @@ function Avatar() {
             alt="avatar_defaut"
           />
         </a>
+        <div className="h-1 "></div>
 
         {isOpen && storedUser && (
           <>
-            <div className="absolute z-50 right-[-40px] w-40 p-2 bg-gray-800 top-[60px]">
+            <div className="absolute z-50 right-[-40px] w-40 p-2 bg-gray-800 top-[52px]">
               <a href="/profile">
                 <p className="text-white font-semibold hover:bg-gray-400 cursor-pointer m-1 text-lg">
                   Trang cá nhân

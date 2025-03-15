@@ -4,6 +4,7 @@ import CategoryReducer from "@/stores/slices/category";
 import PostcardReducer from "@/stores/slices/postcard";
 import BannerReducer from "@/stores/slices/banner";
 import ArticleReducer from "@/stores/slices/article";
+import LikeReducer from "@/stores/slices/like";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     postcard: PostcardReducer,
     banner: BannerReducer,
     article: ArticleReducer,
+    like: LikeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

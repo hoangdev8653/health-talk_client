@@ -1,76 +1,112 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Article from "@/components/Article";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { getAllArticleBySlugCategoryThunk } from "@/stores/thunks/article";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import Loading from "@/components/Loading";
+
+interface ArticleData {
+  content: string;
+  id: string;
+  title: string;
+  image: string;
+  slug: string;
+  Category?: {
+    id: string;
+    name: string;
+    image?: string;
+  };
+  User?: {
+    id: string;
+    username: string;
+  };
+}
 
 const Category: React.FC = () => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const slug = pathname.split("/").pop();
   const article = useAppSelector((state) => state.article);
-  console.log(slug);
+
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
     if (slug) {
       dispatch(getAllArticleBySlugCategoryThunk(slug));
     }
-  }, [slug]);
-  console.log(article?.data);
+  }, [slug, dispatch]);
+
+  const categoryName =
+    article?.data?.data?.content?.[0]?.Category?.name || "Loading...";
+  const categoryImage =
+    article?.data?.data?.content?.[0]?.Category?.image || "/default-image.jpg";
 
   return (
     <div className="w-full">
       <div className="w-4/5 mx-auto my-10">
         <h1
           style={{ textShadow: "0em 0.1em 0.1em rgba(0,0,0,0.4)" }}
-          className=" font-medium text-3xl my-4 "
+          className="font-medium text-3xl my-4"
         >
-          {article?.data?.data?.content[0]?.Category?.name}
+          {isClient ? categoryName : "Loading..."}
         </h1>
       </div>
+
       <div className="my-8">
         <Image
-          src="/images/poster_postcard.jpg"
-          alt="poster_postcard"
-          height={800}
-          width={0}
-          layout="responsive"
-          objectFit="cover"
+          src={categoryImage}
+          alt={categoryName}
+          width={800}
+          height={400}
+          className="w-full h-auto object-cover"
         />
       </div>
-      <div className="w-4/5 mx-auto ">
-        <div className="grid grid-cols-3 gap-16 my-4 tablet:grid-cols-1 ">
-          <div className="item">
-            <Link href={`http://localhost:3000/home/1`}>
-              <div className="border-2 border-gray-300  ">
-                <Image
-                  width={200}
-                  height={550}
-                  className="object-cover w-full h-[180px]"
-                  src="https://www.ladiesofvietnam.net/wp-content/uploads/2024/02/AI-KHONG-THICH-TET-1-400x250.jpg"
-                  alt="logo"
-                />
-                <div className="mx-4 my-2">
-                  <h2 className="my-1">Người đẹp và quái thú</h2>
-                  <div className="text-sm" style={{ color: "#666" }}>
-                    <p>by Huy Hoàng</p>
-                    <p>
-                      Người đẹp và Quái thú - Beauty and The Beast, bản hoạt
-                      hình được Walt Disney công chiếu năm 1991, là câu chuyện
-                      cổ tích kể về mối tình đẹp, thơ mộng nhưng cũng lắm trắc
-                      trở giữa Belle dũng cảm, tử tế, kiên nhẫn, vị...
-                    </p>
-                    <span className="text-rose-400 hover:underline cursor-pointer">
-                      read more
-                    </span>
+
+      <div className="w-4/5 mx-auto">
+        <div className="grid grid-cols-3 gap-8 my-4 tablet:grid-cols-1">
+          {article?.data?.data?.content?.map(
+            (item: ArticleData, index: number) => (
+              <div key={index} className="item border-2 border-gray-300">
+                <Link href={`/home/${item.slug}`}>
+                  <div>
+                    <Image
+                      width={400}
+                      height={250}
+                      className="object-cover w-full h-[180px]"
+                      src={item.image || "/default-image.jpg"}
+                      alt={item.slug}
+                    />
+                    <div className="mx-4 my-2">
+                      <h2 className="my-1 font-bold">{item.title}</h2>
+                      <div className="text-sm text-gray-600">
+                        <p>by {item.User?.username || "Unknown"}</p>
+                        <div>
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {item.content.length > 100
+                              ? item.content.slice(0, 200) + "..."
+                              : item.content}
+                          </ReactMarkdown>
+                        </div>
+                        <span className="text-rose-400 hover:underline cursor-pointer">
+                          Read more
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
-            </Link>
-          </div>
+            )
+          ) || (
+            <>
+              <Loading />
+            </>
+          )}
         </div>
       </div>
     </div>
