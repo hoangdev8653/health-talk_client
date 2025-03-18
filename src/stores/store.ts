@@ -5,6 +5,7 @@ import PostcardReducer from "@/stores/slices/postcard";
 import BannerReducer from "@/stores/slices/banner";
 import ArticleReducer from "@/stores/slices/article";
 import LikeReducer from "@/stores/slices/like";
+import NotificationReducer from "@/stores/slices/notification";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     banner: BannerReducer,
     article: ArticleReducer,
     like: LikeReducer,
+    notification: NotificationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

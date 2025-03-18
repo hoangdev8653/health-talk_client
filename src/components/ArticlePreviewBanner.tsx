@@ -28,16 +28,17 @@ function ArticlePreviewBanner({ data, itemToShow = 1 }: Props) {
   return (
     <div className="overflow-hidden justify-center">
       <SimpleSlider
+        dots={true}
         slidesToScroll={1}
         slidesToShow={itemToShow}
         autoPlay={true}
       >
         {data?.data?.content?.map((item: ArticleData, index: number) => (
-          <div key={item.id} className=" w-full min-h-[500px] p-2">
+          <div key={item.id} className=" w-full p-2 focus:border-none">
             <Image
               width={315}
               height={550}
-              className="object-cover w-full h-[460px] relative "
+              className="object-cover w-full h-[460px] relative focus:outline-none"
               src={item.image}
               alt={item.id}
             />

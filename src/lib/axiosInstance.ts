@@ -30,7 +30,7 @@ axiosConfig.interceptors.response.use(
         const refreshToken = getLocalStorage("refreshToken");
         if (!refreshToken) {
           console.error("Refresh token is missing");
-          window.location.href = "/login";
+          // window.location.href = "/login";
           return Promise.reject(error);
         }
         const response = await axios.post(
@@ -39,6 +39,11 @@ axiosConfig.interceptors.response.use(
             refreshToken,
           }
         );
+        if (response.status !== 200) {
+          console.error("Refresh token expired or invalid");
+          // window.location.href = "/login";
+          return Promise.reject(error);
+        }
         console.log("refreshToken: ", response);
 
         const accessToken = response.data?.newToken?.accessToken;

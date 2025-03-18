@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllBannerThunk } from "@/stores/thunks/banner";
 import Image from "next/image";
-import CustomSlider from "@/components/CustomSlider";
-import Slider from "react-slick";
+import SimpleSlider from "@/components/Slick";
 
 type Article = {
   id: string;
@@ -16,16 +15,6 @@ type Article = {
 function Banner() {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.banner);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  var settings = {
-    infinite: true,
-    speed: 500,
-    auto: true,
-    autoplaySpeed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   useEffect(() => {
     dispatch(getAllBannerThunk());
@@ -33,23 +22,16 @@ function Banner() {
 
   return (
     <div className="w-full h-[600px] overflow-hidden">
-      {/* <CustomSlider
-        autoPlayTime={5000}
-        autoPlay={false}
-        className="w-full h-full"
-        buttonMove={true}
-        onSlideChange={setCurrentIndex}
-      > */}
-      <Slider {...settings}>
+      <SimpleSlider slidesToScroll={1} slidesToShow={1} autoPlay={true}>
         {data &&
           data?.data?.content?.map((item: Article, index: number) => (
-            <div key={index} className="p-0 m-0 relative">
+            <div key={index} className="p-0 m-0 relative focus:border-none">
               <Image
                 width={1920}
                 height={800}
                 src={item.image}
                 alt={item.id}
-                className="w-full h-[600px] object-cover"
+                className="w-full h-[600px] object-cover focus:border-none"
                 style={{ objectPosition: "center" }}
               />
               <div
@@ -63,8 +45,7 @@ function Banner() {
               </div>
             </div>
           ))}
-      </Slider>
-      {/* </CustomSlider> */}
+      </SimpleSlider>
     </div>
   );
 }

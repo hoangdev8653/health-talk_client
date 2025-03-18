@@ -6,6 +6,7 @@ interface Props {
   slidesToShow: number;
   slidesToScroll: number;
   autoPlay?: boolean;
+  dots?: boolean;
 }
 
 export default function SimpleSlider({
@@ -13,8 +14,10 @@ export default function SimpleSlider({
   slidesToShow = 4,
   slidesToScroll = 2,
   autoPlay,
+  dots,
 }: Props) {
   var settings = {
+    dots: dots,
     infinite: true,
     speed: 500,
     slidesToShow: slidesToShow,
@@ -28,6 +31,8 @@ export default function SimpleSlider({
           slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
+          dots: dots,
+          speed: 500,
         },
       },
       {
