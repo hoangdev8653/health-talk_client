@@ -1,4 +1,7 @@
-import { getNotificationByUserThunk } from "@/stores/thunks/notification";
+import {
+  getNotificationByUserThunk,
+  updateStatusNotificationThunk,
+} from "@/stores/thunks/notification";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface NotificationState {
@@ -47,6 +50,18 @@ const notificationSlice = createSlice({
         }
       })
       .addCase(getNotificationByUserThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updateStatusNotificationThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateStatusNotificationThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.NotificationIsReaded = action.payload;
+      })
+      .addCase(updateStatusNotificationThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

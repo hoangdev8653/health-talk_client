@@ -26,19 +26,19 @@ function Content() {
   }, [dispatch]);
 
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="w-4/5 mx-auto ">
       <Article data={article.allArticles} itemToShow={4} />
       <div>
         {postcard.data.data?.content?.map(
           (item: postcardData, index: number) => (
             <div
               key={item.id}
-              className={`flex items-center gap-4 ${
+              className={`flex items-center gap-4 tablet:block my-8 ${
                 index % 2 === 0 ? "flex-row" : "flex-row-reverse"
               }`}
             >
               <div
-                className={`w-1/2 relative group ${
+                className={`w-1/2 relative group tablet:w-full ${
                   index % 2 !== 0 ? "ml-auto" : "mr-auto"
                 }`}
               >
@@ -50,9 +50,13 @@ function Content() {
                   className="my-4 w-full h-full object-cover "
                 />
               </div>
-              <div className="w-1/2 text-center">
-                <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
-                <p className="text-gray-700">{item.decription}</p>
+              <div className="w-1/2 text-center tablet:w-full ">
+                <h2 className="text-xl font-semibold mb-2 tablet:text-2xl ">
+                  {item.title}
+                </h2>
+                <p className="text-gray-700 tablet:text-xl">
+                  {item.decription}
+                </p>
               </div>
             </div>
           )

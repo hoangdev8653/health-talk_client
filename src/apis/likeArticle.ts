@@ -11,6 +11,15 @@ export const createLike = async (postId: string) => {
   return await axiosConfig({
     method: "post",
     url: "like/create",
-    data: postId,
+    data: {
+      postId,
+    },
+  });
+};
+
+export const getLikeBySlugArticle = async (slug: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `like/${slug}`,
   });
 };

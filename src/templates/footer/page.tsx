@@ -8,18 +8,18 @@ import {
 function Footer() {
   return (
     <div style={{ color: "#EFE3CA" }} className="w-full bg-black">
-      <div className="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8 opacity-70">
+      <div className="mx-auto max-w-7xl py-2 px-4 sm:px-6 lg:px-8 opacity-70">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center my-8">
           <div className="leading-7">
             <h3 className="font-semibold text-lg mb-2">Về H7 Life</h3>
-            <p>
+            <p className="hidden md:block">
               H7 Life là nền tảng cung cấp kiến thức sức khỏe, tư vấn y tế và
               kết nối cộng đồng với các chuyên gia.
             </p>
             <p>Hãy cùng chúng tôi xây dựng một cuộc sống khỏe mạnh hơn!</p>
           </div>
 
-          <div className="leading-7">
+          <div className="leading-5">
             <h3 className="font-semibold text-lg mb-2">Điều hướng</h3>
             <ul className="space-y-2">
               <li>

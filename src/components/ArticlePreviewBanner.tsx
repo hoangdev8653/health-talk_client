@@ -31,10 +31,10 @@ function ArticlePreviewBanner({ data, itemToShow = 1 }: Props) {
         dots={true}
         slidesToScroll={1}
         slidesToShow={itemToShow}
-        autoPlay={true}
+        autoPlay={false}
       >
         {data?.data?.content?.map((item: ArticleData, index: number) => (
-          <div key={item.id} className=" w-full p-2 focus:border-none">
+          <div key={item.id} className=" w-full p-2 focus:border-none ">
             <Image
               width={315}
               height={550}
@@ -42,7 +42,7 @@ function ArticlePreviewBanner({ data, itemToShow = 1 }: Props) {
               src={item.image}
               alt={item.id}
             />
-            <div className="w-[300px] absolute top-1/4 mx-5 ">
+            <div className="w-[300px] absolute top-1/4 mx-5 animate-fade-in">
               <div className=" text-white text-center ">
                 <h2 className="my-1 text-lg font-semibold">{item.title}</h2>
                 <div className="text-sm font-medium text-white text-center my-4">

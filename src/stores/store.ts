@@ -6,6 +6,7 @@ import BannerReducer from "@/stores/slices/banner";
 import ArticleReducer from "@/stores/slices/article";
 import LikeReducer from "@/stores/slices/like";
 import NotificationReducer from "@/stores/slices/notification";
+import ReviewArticleReducer from "@/stores/slices/reviewArticle";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     article: ArticleReducer,
     like: LikeReducer,
     notification: NotificationReducer,
+    reviewArticle: ReviewArticleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

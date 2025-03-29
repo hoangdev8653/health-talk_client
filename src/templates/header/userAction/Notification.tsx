@@ -3,17 +3,13 @@ import Image from "next/image";
 import React, { useEffect, useState, useRef } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { getNotificationByUserThunk } from "@/stores/thunks/notification";
+import {
+  getNotificationByUserThunk,
+  updateStatusNotificationThunk,
+} from "@/stores/thunks/notification";
 import formatDate from "@/utils/formatDate";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 function Notification() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +44,11 @@ function Notification() {
     };
   }, [isOpen]);
 
+  const handleReadNotification = (id: any) => {
+    const result = dispatch(updateStatusNotificationThunk(id));
+    console.log(result);
+  };
+
   return (
     <div ref={notificationRef} className="relative inline-block">
       <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
@@ -55,7 +56,9 @@ function Notification() {
         <div className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full">
           <div
             style={
-              totalNotificationUnRead > 0 ? { backgroundColor: "red" } : {}
+              totalNotificationUnRead > 0
+                ? { backgroundColor: "red" }
+                : { backgroundColor: "transparent" }
             }
             className="flex items-center justify-center w-5 h-5  text-white rounded-full text-sm font-bold"
           >
@@ -86,11 +89,12 @@ function Notification() {
                     NotificationByUser?.data?.content?.map(
                       (item: any, index: number) => (
                         <a
+                          onClick={() => handleReadNotification(item.id)}
                           className="relative"
                           key={index}
-                          href={`http://localhost:3000/home/${item.post.id}`}
+                          href={`http://localhost:3000/home/${item.post.slug}`}
                         >
-                          <div className="flex gap-2 my-4">
+                          <div className="flex gap-2 my-4 cursor-pointer">
                             <div className="w-1/6">
                               <Image
                                 width={48}
@@ -107,14 +111,20 @@ function Notification() {
                                   {formatDate(item.createdAt)}
                                 </p>
                               </div>
-                              <div className="w-2 h-2 bg-blue-700 rounded"></div>
+                              {item.is_read === false ? (
+                                <div className="w-2 h-2 bg-blue-700 rounded"></div>
+                              ) : (
+                                <></>
+                              )}
                             </div>
                           </div>
                         </a>
                       )
                     )
                   ) : (
-                    <p className="text-gray-400">Không có thông báo nào.</p>
+                    <p className="text-gray-400 mx-2">
+                      Không có thông báo mới.
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -138,17 +148,22 @@ function Notification() {
                               alt={item.post.id}
                             />
                           </div>
-                          <div className="flex-1 mr-2">
-                            <p>{item.message}</p>
-                            <p className="text-sm text-gray-300 opacity-80">
-                              {formatDate(item.createdAt)}
-                            </p>
+                          <div className="flex-1 mr-2 flex items-center gap-2">
+                            <div>
+                              <p>{item.message}</p>
+                              <p className="text-sm text-gray-300 opacity-80">
+                                {formatDate(item.createdAt)}
+                              </p>
+                            </div>
+                            <div className="w-2 h-2 bg-blue-700 rounded"></div>
                           </div>
                         </div>
                       </a>
                     ))
                   ) : (
-                    <p className="text-gray-400">Không có thông báo nào.</p>
+                    <p className="text-gray-400 mx-4">
+                      Không có thông báo mới.
+                    </p>
                   )}
                 </CardContent>
               </Card>

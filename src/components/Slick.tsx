@@ -7,6 +7,8 @@ interface Props {
   slidesToScroll: number;
   autoPlay?: boolean;
   dots?: boolean;
+  beakpointMobile?: number;
+  beakpointTablet?: number;
 }
 
 export default function SimpleSlider({
@@ -15,6 +17,8 @@ export default function SimpleSlider({
   slidesToScroll = 2,
   autoPlay,
   dots,
+  beakpointTablet,
+  beakpointMobile,
 }: Props) {
   var settings = {
     dots: dots,
@@ -26,28 +30,21 @@ export default function SimpleSlider({
     autoplaySpeed: 5000,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: beakpointTablet,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           infinite: true,
           dots: dots,
           speed: 500,
         },
       },
       {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 550,
+        breakpoint: beakpointMobile,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
     ],

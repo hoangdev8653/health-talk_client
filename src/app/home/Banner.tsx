@@ -22,7 +22,13 @@ function Banner() {
 
   return (
     <div className="w-full h-[600px] overflow-hidden">
-      <SimpleSlider slidesToScroll={1} slidesToShow={1} autoPlay={true}>
+      <SimpleSlider
+        beakpointTablet={1}
+        beakpointMobile={1}
+        slidesToScroll={1}
+        slidesToShow={1}
+        autoPlay={false}
+      >
         {data &&
           data?.data?.content?.map((item: Article, index: number) => (
             <div key={index} className="p-0 m-0 relative focus:border-none">
