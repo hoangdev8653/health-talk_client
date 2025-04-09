@@ -85,42 +85,40 @@ function Notification() {
             <TabsContent value="all">
               <Card className="border-none">
                 <CardContent className="border-none p-0 m-0 ">
-                  {NotificationByUser?.data?.content?.length > 0 ? (
-                    NotificationByUser?.data?.content?.map(
-                      (item: any, index: number) => (
-                        <a
-                          onClick={() => handleReadNotification(item.id)}
-                          className="relative"
-                          key={index}
-                          href={`http://localhost:3000/home/${item.post.slug}`}
-                        >
-                          <div className="flex gap-2 my-4 cursor-pointer">
-                            <div className="w-1/6">
-                              <Image
-                                width={48}
-                                height={48}
-                                className="rounded-full w-12 h-12 object-cover"
-                                src={item.post.image}
-                                alt={item.post.id}
-                              />
-                            </div>
-                            <div className="flex-1 mr-2 flex items-center gap-2">
-                              <div>
-                                <p>{item.message}</p>
-                                <p className="text-sm text-gray-300 opacity-80">
-                                  {formatDate(item.createdAt)}
-                                </p>
-                              </div>
-                              {item.is_read === false ? (
-                                <div className="w-2 h-2 bg-blue-700 rounded"></div>
-                              ) : (
-                                <></>
-                              )}
-                            </div>
+                  {NotificationByUser?.length > 0 ? (
+                    NotificationByUser?.map((item: any, index: number) => (
+                      <a
+                        onClick={() => handleReadNotification(item.id)}
+                        className="relative"
+                        key={index}
+                        href={`http://localhost:3000/home/${item.post.slug}`}
+                      >
+                        <div className="flex gap-2 my-4 cursor-pointer">
+                          <div className="w-1/6">
+                            <Image
+                              width={48}
+                              height={48}
+                              className="rounded-full w-12 h-12 object-cover"
+                              src={item.post.image}
+                              alt={item.post.id}
+                            />
                           </div>
-                        </a>
-                      )
-                    )
+                          <div className="flex-1 mr-2 flex items-center gap-2">
+                            <div>
+                              <p>{item.message}</p>
+                              <p className="text-sm text-gray-300 opacity-80">
+                                {formatDate(item.createdAt)}
+                              </p>
+                            </div>
+                            {item.is_read === false ? (
+                              <div className="w-2 h-2 bg-blue-700 rounded"></div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </div>
+                      </a>
+                    ))
                   ) : (
                     <p className="text-gray-400 mx-2">
                       Không có thông báo mới.

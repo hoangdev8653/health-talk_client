@@ -1,6 +1,7 @@
 import {
   getNotificationByUser,
   updateStatusNotification,
+  deleteNotification,
 } from "@/apis/notification";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -21,6 +22,18 @@ export const updateStatusNotificationThunk = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       const response = await updateStatusNotification(id);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteNotificationThunk = createAsyncThunk(
+  "notification/delete",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await deleteNotification(id);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

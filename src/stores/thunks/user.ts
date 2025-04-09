@@ -1,4 +1,4 @@
-import { loginApi, registerApi } from "@/apis/user";
+import { loginApi, registerApi, updateAvarta } from "@/apis/user";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginType, registerType } from "@/types/user";
 
@@ -21,6 +21,18 @@ export const loginThunk = createAsyncThunk(
       const response = await loginApi(data);
       console.log(response);
 
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateAvatarThunk = createAsyncThunk(
+  "user/updateAvatar",
+  async (data: any, thunkAPI) => {
+    try {
+      const response = await updateAvarta(data);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

@@ -16,3 +16,11 @@ export const loginApi = async (data: loginType) => {
     data,
   });
 };
+
+export const updateAvarta = async (data: any) => {
+  return await axiosConfig({
+    method: "put",
+    url: "/user/updateAvatar",
+    data,
+  });
+};

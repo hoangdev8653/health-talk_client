@@ -5,6 +5,7 @@ import {
   getArticleBySlug,
   getArticesByCategory,
   getAllArticleBySlugCategory,
+  getArticlesByUser,
 } from "@/apis/article";
 import { createArticleType } from "@/types/article";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -77,6 +78,18 @@ export const getAllArticleBySlugCategoryThunk = createAsyncThunk(
   async (slug: string, thunkAPI) => {
     try {
       const response = await getAllArticleBySlugCategory(slug);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getArticlesByUserThunk = createAsyncThunk(
+  "article/byUser",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getArticlesByUser();
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

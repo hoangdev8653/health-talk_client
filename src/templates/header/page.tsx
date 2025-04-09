@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import Logo from "./logoSection/Logo";
@@ -22,18 +22,31 @@ function Header() {
       </div>
 
       {menuOpen && (
-        <div className="absolute left-0 top-full bg-white w-full p-[5%] z-50 border-t-[3px] border-solid border-red-800 hidden tablet:block shadow">
+        <div className="absolute left-0 top-full bg-white w-full p-[5%] z-50 border-t-[3px] border-solid border-red-800 hidden tablet:block shadow-md ">
           <div className="border-b-[1px] border-gray-100 opacity-70 text-gray-600 font-semibold hover:bg-gray-100 p-2 cursor-pointer">
-           <p className="ml-4">Trang chủ</p> 
+            <a href="/" className="ml-4">
+              Trang chủ
+            </a>
           </div>
           <div className="border-b-[1px] border-gray-100 opacity-70 text-gray-600 font-semibold hover:bg-gray-100 p-2 cursor-pointer">
-          <p className="ml-4">Trang chủ</p> 
+            <a href="/articles" className="ml-4">
+              Bài viết
+            </a>
           </div>
           <div className="border-b-[1px] border-gray-100 opacity-70 text-gray-600 font-semibold hover:bg-gray-100 p-2 cursor-pointer">
-          <p className="ml-4">Trang chủ</p> 
+            <a href="/research" className="ml-4">
+              Nguyên Cứu
+            </a>
           </div>
           <div className="border-b-[1px] border-gray-100 opacity-70 text-gray-600 font-semibold hover:bg-gray-100 p-2 cursor-pointer">
-          <p className="ml-4">Trang chủ</p> 
+            <a href="/postcard" className="ml-4">
+              Postcard
+            </a>
+          </div>
+          <div className="border-b-[1px] border-gray-100 opacity-70 text-gray-600 font-semibold hover:bg-gray-100 p-2 cursor-pointer">
+            <a href="/about-us" className="ml-4">
+              Về chúng tôi
+            </a>
           </div>
         </div>
       )}

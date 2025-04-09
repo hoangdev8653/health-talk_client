@@ -42,10 +42,13 @@ function ArticlePreviewBanner({ data, itemToShow = 1 }: Props) {
               src={item.image}
               alt={item.id}
             />
-            <div className="w-[300px] absolute top-1/4 mx-5 animate-fade-in">
-              <div className=" text-white text-center ">
-                <h2 className="my-1 text-lg font-semibold">{item.title}</h2>
-                <div className="text-sm font-medium text-white text-center my-4">
+
+            <div className="w-[90%] max-w-[300px] mx-5  absolute top-1/4 animate-fade-in">
+              <div className="text-white text-center">
+                <h2 className="my-1 text-base sm:text-lg font-semibold">
+                  {item.title}
+                </h2>
+                <div className="text-xs sm:text-sm font-medium text-white text-center my-4">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {item.content.length > 100
                       ? item.content.slice(0, 200) + "..."
@@ -54,7 +57,7 @@ function ArticlePreviewBanner({ data, itemToShow = 1 }: Props) {
                 </div>
                 <a
                   href={`http://localhost:3000/home/${item.slug}`}
-                  className="px-4 py-3 border-solid border-2 border-white text-lg font-semibold hover:opacity-75 cursor-pointer"
+                  className="px-3 py-2 sm:px-4 sm:py-3 border-solid border-2 border-white text-sm sm:text-lg font-semibold hover:opacity-75 cursor-pointer"
                 >
                   Read More
                 </a>

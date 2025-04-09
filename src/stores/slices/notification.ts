@@ -1,6 +1,7 @@
 import {
   getNotificationByUserThunk,
   updateStatusNotificationThunk,
+  deleteNotificationThunk,
 } from "@/stores/thunks/notification";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -9,6 +10,7 @@ interface NotificationState {
   NotificationByUser: any;
   NotificationIsReaded: any;
   NotificationIsUnRead: any;
+  NotificationFavorite: any;
   totalNotification: number;
   totalNotificationUnRead: number;
   error: string | null;
@@ -19,6 +21,7 @@ const initialState: NotificationState = {
   NotificationByUser: null,
   NotificationIsReaded: null,
   NotificationIsUnRead: null,
+  NotificationFavorite: null,
   totalNotification: 0,
   totalNotificationUnRead: 0,
   error: null,
@@ -36,7 +39,7 @@ const notificationSlice = createSlice({
       })
       .addCase(getNotificationByUserThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.NotificationByUser = action.payload;
+        state.NotificationByUser = action.payload.data.content;
         if (action.payload.data.content.length === 0) {
           state.totalNotification = 0;
           state.totalNotificationUnRead = 0;
@@ -62,6 +65,27 @@ const notificationSlice = createSlice({
         state.NotificationIsReaded = action.payload;
       })
       .addCase(updateStatusNotificationThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteNotificationThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteNotificationThunk.fulfilled, (state, action) => {
+        const deleteId = action.meta.arg;
+
+        state.loading = false;
+        state.NotificationByUser = action.payload.data.content.filter(
+          (item: any) => item.id != deleteId
+        );
+
+        state.NotificationIsUnRead = action.payload.data.content.filter(
+          (item: any) => item.is_read === false
+        );
+        state.totalNotificationUnRead = state.NotificationIsUnRead.length;
+      })
+      .addCase(deleteNotificationThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

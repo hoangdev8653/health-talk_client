@@ -35,6 +35,14 @@ export const getArticleBySlug = async (slug: string) => {
     url: `/article/${slug}`,
   });
 };
+
+export const getArticlesByUser = async () => {
+  return await axiosConfig({
+    method: "get",
+    url: "article/byUser",
+  });
+};
+
 export const createArticle = async (data: createArticleType) => {
   return await axiosConfig({
     method: "post",

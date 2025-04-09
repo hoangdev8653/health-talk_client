@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAllArticleBySlugCategoryThunk } from "@/stores/thunks/article";
@@ -73,7 +72,7 @@ const Category: React.FC = () => {
           {article?.data?.data?.content?.map(
             (item: ArticleData, index: number) => (
               <div key={index} className="item border-2 border-gray-300">
-                <Link href={`/home/${item.slug}`}>
+                <a href={`/home/${item.slug}`}>
                   <div>
                     <Image
                       width={400}
@@ -99,7 +98,7 @@ const Category: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
               </div>
             )
           ) || (

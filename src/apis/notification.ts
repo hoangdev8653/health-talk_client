@@ -13,3 +13,10 @@ export const updateStatusNotification = async (id: string) => {
     url: `notification/updateStatus?id=${id}`,
   });
 };
+
+export const deleteNotification = async (id: string) => {
+  return await axiosConfig({
+    method: "delete",
+    url: `notification/delete?id=${id}`,
+  });
+};

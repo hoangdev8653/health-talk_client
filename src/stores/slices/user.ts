@@ -1,4 +1,8 @@
-import { loginThunk, registerThunk } from "@/stores/thunks/user";
+import {
+  loginThunk,
+  registerThunk,
+  updateAvatarThunk,
+} from "@/stores/thunks/user";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface UserState {
@@ -57,6 +61,18 @@ const userSlice = createSlice({
         );
       })
       .addCase(loginThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updateAvatarThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateAvatarThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateAvatarThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

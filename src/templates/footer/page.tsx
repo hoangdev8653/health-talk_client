@@ -9,7 +9,7 @@ function Footer() {
   return (
     <div style={{ color: "#EFE3CA" }} className="w-full bg-black">
       <div className="mx-auto max-w-7xl py-2 px-4 sm:px-6 lg:px-8 opacity-70">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center my-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center my-2">
           <div className="leading-7">
             <h3 className="font-semibold text-lg mb-2">Về H7 Life</h3>
             <p className="hidden md:block">

@@ -5,6 +5,7 @@ import {
   getArticleByIdThunk,
   getArticleBySlugThunk,
   getAllArticleBySlugCategoryThunk,
+  getArticlesByUserThunk,
 } from "@/stores/thunks/article";
 import { createSlice } from "@reduxjs/toolkit";
 import { setLocalStorage } from "@/lib/localStorage";
@@ -107,6 +108,18 @@ const articleSlice = createSlice({
       .addCase(getAllArticleBySlugCategoryThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(getArticlesByUserThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getArticlesByUserThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(getArticlesByUserThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error as string;
       });
   },
 });

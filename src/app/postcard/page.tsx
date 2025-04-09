@@ -12,8 +12,6 @@ function Postcard() {
   const dispacth = useAppDispatch();
   const { data, loading } = useAppSelector((state) => state.postcard);
 
-  // console.log(data);
-
   useEffect(() => {
     dispacth(getAllPostcardThunk());
   }, [dispacth]);
