@@ -49,7 +49,6 @@ function CommentArticles({ slug }: propsComment) {
     dispacth(getReviewBySlugArticleThunk(slug));
     dispacth(getLikeBySlugArticleThunk(slug));
   }, [slug, dispacth]);
-  // console.log(like.data, like.totalLikes, like.isLike);
 
   const sortReviews = [...data].sort((a: any, b: any) => {
     return sortOrder === "newest"
@@ -66,12 +65,10 @@ function CommentArticles({ slug }: propsComment) {
   } = useForm({
     resolver: yupResolver(articleValidate.reviewArticle),
   });
-  // console.log(like.data);
 
   const handleLike = (articleId: string) => {
     setIsLike(!isLike);
     dispacth(createLikeThunk(articleId));
-    // console.log(data);
   };
 
   const content = watch("content");
@@ -87,8 +84,6 @@ function CommentArticles({ slug }: propsComment) {
       reset();
     }
   };
-
-  // console.log(sortReviews[0]?.Article?.id);
 
   return (
     <div className="w-full ">

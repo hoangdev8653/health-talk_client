@@ -1,4 +1,5 @@
 import {
+  getAllUserThunk,
   loginThunk,
   registerThunk,
   updateAvatarThunk,
@@ -6,12 +7,14 @@ import {
 import { createSlice } from "@reduxjs/toolkit";
 
 interface UserState {
+  data: any;
   user: any;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: UserState = {
+  data: [],
   user: null,
   loading: false,
   error: null,
@@ -28,6 +31,18 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllUserThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAllUserThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(getAllUserThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(registerThunk.pending, (state) => {
         state.loading = true;
         state.error = null;

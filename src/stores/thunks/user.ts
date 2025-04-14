@@ -1,6 +1,18 @@
-import { loginApi, registerApi, updateAvarta } from "@/apis/user";
+import { loginApi, registerApi, updateAvarta, getAllUser } from "@/apis/user";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginType, registerType } from "@/types/user";
+
+export const getAllUserThunk = createAsyncThunk(
+  "user/getAll",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getAllUser();
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const registerThunk = createAsyncThunk(
   "user/dang-ki",
@@ -19,8 +31,6 @@ export const loginThunk = createAsyncThunk(
   async (data: loginType, thunkAPI) => {
     try {
       const response = await loginApi(data);
-      console.log(response);
-
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

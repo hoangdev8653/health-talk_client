@@ -1,6 +1,13 @@
 import { axiosConfig } from "@/lib/axiosInstance";
 import { loginType, registerType } from "@/types/user";
 
+export const getAllUser = async () => {
+  return axiosConfig({
+    method: "get",
+    url: "/user",
+  });
+};
+
 export const registerApi = async (data: registerType) => {
   return await axiosConfig({
     method: "post",
