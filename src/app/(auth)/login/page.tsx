@@ -36,7 +36,6 @@ function Login() {
     >
       <div className="bg-white w-[960px] rounded-xl overflow-hidden  h-[600px]">
         <div className="flex flex-wrap justify-around items-center my-auto h-full">
-          {/* Hình ảnh bên trái */}
           <div className="w-[316px] my-auto">
             <Image
               width={316}
@@ -46,13 +45,10 @@ function Login() {
               className="w-[316px] h-[289px] object-cover"
             />
           </div>
-
-          {/* Form đăng nhập bên phải */}
           <div className="w-[290px] my-auto">
             <div className="mx-auto text-center">
               <p className="text-black font-semibold text-3xl">Member Login</p>
               <form onSubmit={handleSubmit(onSubmit)} className="my-16">
-                {/* Email input */}
                 <div className="block my-4 relative">
                   <input
                     {...register("email")}
@@ -70,8 +66,6 @@ function Login() {
                     </p>
                   )}
                 </div>
-
-                {/* Password input */}
                 <div className="block my-4 relative">
                   <input
                     {...register("password")}
@@ -89,8 +83,6 @@ function Login() {
                     </p>
                   )}
                 </div>
-
-                {/* Button Login */}
                 <Button
                   type="submit"
                   style={{ background: "#57b846" }}
@@ -98,8 +90,6 @@ function Login() {
                 >
                   Login
                 </Button>
-
-                {/* Forgot Password */}
                 <div className="flex gap-1 text-center justify-center">
                   <p style={{ color: "#999999" }} className="text-base">
                     Forgot
@@ -112,8 +102,6 @@ function Login() {
                   </a>
                 </div>
               </form>
-
-              {/* Link đăng ký */}
               <a
                 href="/register"
                 className="text-center justify-center text-base text-gray-500 flex gap-2 hover:opacity-65 cursor-pointer"

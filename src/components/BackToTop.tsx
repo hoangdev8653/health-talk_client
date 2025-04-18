@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowUp } from "react-icons/io";
+
 const BackToTop: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const toggleVisible = () => {
@@ -18,11 +19,12 @@ const BackToTop: React.FC = () => {
     });
   };
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisible);
+    window.addEventListener("scroll", toggleVisible);
     return () => {
-      window.removeEventListener('scroll', toggleVisible);
+      window.removeEventListener("scroll", toggleVisible);
     };
-  }, []);  return (
+  }, []);
+  return (
     <div
       className="fixed bottom-[50px] right-[30px] cursor-pointer "
       style={{
@@ -41,6 +43,6 @@ const BackToTop: React.FC = () => {
       />
     </div>
   );
-}
+};
 
 export default BackToTop;

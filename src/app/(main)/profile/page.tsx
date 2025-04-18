@@ -1,14 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MyArticles from "./MyArticles";
 import Frofile from "./Profile";
 import Account from "./Account";
 import Notification from "./Notification";
 import { FaFileAlt, FaUser } from "react-icons/fa";
 import { IoIosSettings, IoIosNotifications } from "react-icons/io";
+import { io, Socket } from "socket.io-client";
+
+const host = "http://localhost:3007";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Profile");
+
+  const socketRef = useRef<Socket | null>(null);
+
+  useEffect(() => {
+    socketRef.current = io(host);
+
+    socketRef.current.on("connect", () => {
+      console.log("Kết nối thành công với server:", socketRef.current?.id);
+    });
+
+    socketRef.current.on("test-response", (data) => {
+      console.log("Phản hồi từ server:", data);
+    });
+
+    socketRef.current.emit("test-event", "Hello từ client!");
+
+    return () => {
+      socketRef.current?.disconnect();
+    };
+  }, []);
 
   const tabs = [
     { title: "Profile", icon: <FaUser /> },

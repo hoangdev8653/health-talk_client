@@ -1,11 +1,15 @@
-import Banner from "./home/Banner";
-import Content from "@/app/home/Content";
+import Header from "@/templates/header/page";
+import Footer from "@/templates/footer/page";
+import BackToTop from "@/components/BackToTop";
+import Home from "@/app/(main)/home/page";
 
-export default function Home() {
+export default function Index() {
   return (
     <div>
-      <Banner />
-      <Content />
+      <Header />
+      <Home />
+      <BackToTop />
+      <Footer />
     </div>
   );
 }

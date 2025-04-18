@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllCategoryThunk } from "@/stores/thunks/category";
 import formatDate from "@/utils/formatDate";
@@ -15,8 +15,15 @@ function Category() {
   useEffect(() => {
     dispatch(getAllCategoryThunk());
   }, []);
+  const sortedCategory = useMemo(() => {
+    if (!data?.data?.content) return [];
+    return [...data.data.content].sort((a, b) => {
+      return sortOrder === "newest"
+        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
+  }, [data, sortOrder]);
 
-  console.log(data);
   return (
     <div className="bg-white rounded-2xl  p-6 my-8 w-full">
       <div className="flex justify-between">
@@ -67,7 +74,7 @@ function Category() {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.content?.map((item: any, index: number) => (
+            {sortedCategory?.map((item: any, index: number) => (
               <tr
                 key={index}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"

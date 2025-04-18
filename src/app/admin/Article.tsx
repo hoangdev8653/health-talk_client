@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllArticleThunk } from "@/stores/thunks/article";
 import formatDate from "@/utils/formatDate";
@@ -14,6 +16,15 @@ function Article() {
   useEffect(() => {
     dispatch(getAllArticleThunk());
   }, []);
+
+  const sortedArticles = useMemo(() => {
+    if (!allArticles?.data?.content) return [];
+    return [...allArticles.data.content].sort((a, b) => {
+      return sortOrder === "newest"
+        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
+  }, [allArticles, sortOrder]);
 
   return (
     <div className="w-full">
@@ -68,7 +79,7 @@ function Article() {
               </tr>
             </thead>
             <tbody>
-              {allArticles?.data?.content?.map((item: any, index: number) => (
+              {sortedArticles?.map((item: any, index: number) => (
                 <tr
                   key={index}
                   className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200"

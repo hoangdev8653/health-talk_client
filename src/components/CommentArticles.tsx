@@ -16,7 +16,7 @@ import {
   getLikeBySlugArticleThunk,
   createLikeThunk,
 } from "@/stores/thunks/like";
-
+import { SortValue } from "@/components/SortValue";
 import { useRouter } from "next/navigation";
 import { AiOutlineLike } from "react-icons/ai";
 
@@ -55,6 +55,9 @@ function CommentArticles({ slug }: propsComment) {
       ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   });
+
+  // const a = SortValue([...data]).newest;
+  // console.log(a);
 
   const {
     register,

@@ -84,10 +84,8 @@ function Footer() {
           </div>
         </div>
 
-        {/* Đường kẻ ngăn cách */}
         <div className="border-white border-t-2 opacity-50"></div>
 
-        {/* Bản quyền */}
         <div className="text-center my-4">
           <p className="my-2">
             © 2025 H7 Life. All rights reserved. | Powered by Offset Commerce.

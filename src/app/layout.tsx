@@ -3,9 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Footer from "@/templates/footer/page";
-import Header from "@/templates/header/page";
-import BackToTop from "@/components/BackToTop";
 import ProviderWrapper from "./providers/providerWrapper";
 
 const geistSans = Geist({
@@ -33,12 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ProviderWrapper>
-          <Header />
-          {children}
-          <Footer />
-          <BackToTop />
-        </ProviderWrapper>
+        <ProviderWrapper>{children}</ProviderWrapper>
       </body>
     </html>
   );

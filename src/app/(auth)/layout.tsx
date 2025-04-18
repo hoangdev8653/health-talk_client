@@ -1,15 +1,15 @@
 export const metadata = {
-  title: "Admin Panel",
-  description: "Quản trị hệ thống",
+  title: "H7-Authentication",
+  // description: "Quản trị hệ thống",
 };
 
-export default function AdminLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html className="light" lang="en">
       <body>
         <div>{children}</div>
       </body>

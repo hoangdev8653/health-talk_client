@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllUserThunk } from "@/stores/thunks/user";
 import { CiSearch } from "react-icons/ci";
@@ -6,6 +6,16 @@ import formatDate from "@/utils/formatDate";
 import Image from "next/image";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { usePagination } from "@/hooks/usePagination";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function User() {
   const [sortOrder, setSortOrder] = useState("newest");
@@ -16,7 +26,15 @@ function User() {
     dispatch(getAllUserThunk());
   }, []);
 
-  console.log(data);
+  const sortUsers = useMemo(() => {
+    if (!data?.data?.content) return [];
+    return [...data?.data?.content].sort((a, b) => {
+      return sortOrder === "newest"
+        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
+  }, [sortOrder, data]);
+
   return (
     <div className="bg-white rounded-2xl p-6 my-8 w-full">
       <div className="flex justify-between">
@@ -69,7 +87,7 @@ function User() {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.content?.map((item: any, index: number) => (
+            {sortUsers?.map((item: any, index: number) => (
               <tr
                 key={index}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
@@ -92,7 +110,56 @@ function User() {
                 </td>
                 <td className="px-6 py-4  text-center ">
                   <div className="flex gap-2">
-                    <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" />
+                    <div>
+                      <AlertDialog>
+                        <AlertDialogTrigger>
+                          <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" />
+                        </AlertDialogTrigger>
+
+                        <AlertDialogContent className="bg-gray-100">
+                          <AlertDialogHeader>
+                            <AlertDialogDescription>
+                              <div className="bg-gray-100 ">
+                                <div className="my-4">
+                                  <label>Old Password</label>
+                                  <input
+                                    title="old password"
+                                    type="password"
+                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
+                                  />
+                                </div>
+
+                                <div className="my-4">
+                                  <label>New Password</label>
+                                  <input
+                                    title="old password"
+                                    type="password"
+                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid"
+                                  />
+                                </div>
+                                <div className="my-4">
+                                  <label>Confirm New Password</label>
+                                  <input
+                                    title="old password"
+                                    type="password"
+                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid"
+                                  />
+                                </div>
+                              </div>
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel className="bg-red-500 text-white rounded font-semibold ">
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction className="bg-green-500 text-black font-semibold rounded">
+                              Continue
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                    {/* <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" /> */}
                     <MdDeleteForever className="text-2xl text-red-600 hover:opacity-65 cursor-pointer" />
                   </div>
                 </td>
