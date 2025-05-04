@@ -7,6 +7,9 @@ import ArticleReducer from "@/stores/slices/article";
 import LikeReducer from "@/stores/slices/like";
 import NotificationReducer from "@/stores/slices/notification";
 import ReviewArticleReducer from "@/stores/slices/reviewArticle";
+import ManagerUserReducer from "@/stores/slices/managerUser";
+import QuestionReducer from "@/stores/slices/question";
+import TagReducer from "@/stores/slices/tag";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +21,9 @@ export const store = configureStore({
     like: LikeReducer,
     notification: NotificationReducer,
     reviewArticle: ReviewArticleReducer,
+    managerUser: ManagerUserReducer,
+    question: QuestionReducer,
+    tag: TagReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

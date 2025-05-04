@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CiSearch, CiStar } from "react-icons/ci";
+import React, { useMemo, useState } from "react";
+import { CiStar } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import {
@@ -9,12 +9,15 @@ import {
 } from "@/stores/thunks/notification";
 import { useEffect } from "react";
 import formatDate from "@/utils/formatDate";
+import SortValue from "@/components/SortValue";
 
 function Notification() {
   const [activeTab, setActiveTab] = useState("all");
+  const [sortOrder, setSortOrder] = useState("newest");
   const dispatch = useAppDispatch();
-  const { NotificationByUser, NotificationIsUnRead, totalNotificationUnRead } =
-    useAppSelector((state) => state.notification);
+  const { NotificationByUser, totalNotificationUnRead } = useAppSelector(
+    (state) => state.notification
+  );
 
   useEffect(() => {
     dispatch(getNotificationByUserThunk());
@@ -26,7 +29,6 @@ function Notification() {
   };
 
   const handleDeleteNotification = (id: string) => {
-    // console.log(id);
     const result = dispatch(deleteNotificationThunk(id));
     console.log(result);
   };
@@ -36,6 +38,15 @@ function Notification() {
     if (activeTab === "archive") return !item.is_read;
     return true;
   });
+
+  const sortValue = useMemo(() => {
+    if (!filteredNotifications) return [];
+    return [...filteredNotifications].sort((a, b) => {
+      return sortOrder === "newest"
+        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    });
+  }, [filteredNotifications]);
 
   return (
     <div className="text-black">
@@ -51,14 +62,7 @@ function Notification() {
         <div className="flex justify-between p-4 ">
           <div>{NotificationByUser?.length} Notification</div>
           <div>
-            <div className="flex items-center border-[1px] border-solid border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
-              <CiSearch className="text-2xl text-gray-800 cursor-pointer" />
-              <input
-                type="text"
-                placeholder="Search By Name Product"
-                className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none "
-              />
-            </div>
+            <SortValue sortOrder={sortOrder} onChange={setSortOrder} />
           </div>
         </div>
         <div className="w-full h-full bg-gray-50">
@@ -109,10 +113,10 @@ function Notification() {
             </div>
           </div>
           <div className="overflow-y-auto max-h-[500px] ">
-            {filteredNotifications.length > 0 ? (
+            {sortValue.length > 0 ? (
               <>
-                {filteredNotifications &&
-                  filteredNotifications?.map((item: any, index: number) => (
+                {sortValue &&
+                  sortValue?.map((item: any, index: number) => (
                     <div
                       key={index}
                       className={`w-full flex items-center gap-2 p-3 shadow-sm rounded-md ${

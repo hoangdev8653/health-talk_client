@@ -1,30 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllArticleThunk } from "@/stores/thunks/article";
 import formatDate from "@/utils/formatDate";
-import { CiSearch } from "react-icons/ci";
 import { MdEdit, MdDeleteForever } from "react-icons/md";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import FormSearch from "@/components/formSearch";
 
 function Article() {
-  const [sortOrder, setSortOrder] = useState("newest");
   const dispatch = useAppDispatch();
   const { allArticles } = useAppSelector((state) => state.article);
-
   useEffect(() => {
     dispatch(getAllArticleThunk());
   }, []);
-
-  const sortedArticles = useMemo(() => {
-    if (!allArticles?.data?.content) return [];
-    return [...allArticles.data.content].sort((a, b) => {
-      return sortOrder === "newest"
-        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    });
-  }, [allArticles, sortOrder]);
 
   return (
     <div className="w-full">
@@ -32,26 +30,12 @@ function Article() {
         <div className="flex justify-between">
           <p className="font-bold text-xl mx-4">All Articles </p>
           <div className="flex gap-2 ">
-            <div className="flex items-center border-[1px] border-solid border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
-              <CiSearch className="text-2xl text-black font-bold cursor-pointer hover:opacity-60" />
-              <input
-                type="text"
-                placeholder="Search By Name Product"
-                className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none "
-              />
-            </div>
-            <div className="flex items-center">
-              <span>Sort by</span>
-              <select
-                title="sort by"
-                value={sortOrder}
-                onChange={(e) => setSortOrder(e.target.value)}
-                className="border p-1 bg-white text-black"
-              >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
-            </div>
+            <FormSearch placholder="Search By Name Product" />
+            <a href="http://localhost:3000/post">
+              <button className="bg-blue-500 hover:bg-blue-600 rounded-2xl text-white font-semibold px-5 py-2  shadow-md transition">
+                New Article
+              </button>
+            </a>
           </div>
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full my-2">
@@ -73,13 +57,13 @@ function Article() {
                 <th scope="col" className="px-6 py-3 text-center">
                   CreateAt
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-center">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {sortedArticles?.map((item: any, index: number) => (
+              {allArticles?.data?.content?.map((item: any, index: number) => (
                 <tr
                   key={index}
                   className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200"
@@ -105,7 +89,69 @@ function Article() {
                   </td>
                   <td className="px-6 py-4  text-center ">
                     <div className="flex gap-2">
-                      <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" />
+                      <div>
+                        <AlertDialog>
+                          <AlertDialogTrigger>
+                            <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" />
+                          </AlertDialogTrigger>
+
+                          <AlertDialogContent className="bg-gray-100">
+                            <AlertDialogDescription>
+                              <div className="bg-gray-100 w-full">
+                                <div className="my-4 flex gap-2">
+                                  <div className="w-1/2">
+                                    <label>Title</label>
+                                    <input
+                                      title="title"
+                                      type="text"
+                                      className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
+                                    />
+                                  </div>
+                                  <div className="w-1/2">
+                                    <label>User</label>
+                                    <input
+                                      title="user"
+                                      type="text"
+                                      className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
+                                    />
+                                  </div>
+                                </div>
+                                <div className="my-4 flex gap-2">
+                                  <div className="w-1/2 ">
+                                    <label form="user">Category</label>
+                                    <select
+                                      title="role"
+                                      className="gap-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black p-2"
+                                      id="user"
+                                      name="carlist"
+                                      form="carform"
+                                    >
+                                      <option value="user">user</option>
+                                      <option value="admnin">admin</option>
+                                    </select>
+                                  </div>
+                                  <div className="w-1/2">
+                                    <label>status</label>
+                                    <input
+                                      title="Email"
+                                      type="email"
+                                      className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </AlertDialogDescription>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel className="bg-red-500 text-white rounded font-semibold ">
+                                Cancel
+                              </AlertDialogCancel>
+                              <AlertDialogAction className="bg-green-500 text-black font-semibold rounded">
+                                Save
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                       <MdDeleteForever className="text-2xl text-red-600 hover:opacity-65 cursor-pointer" />
                     </div>
                   </td>

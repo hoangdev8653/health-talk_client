@@ -1,6 +1,4 @@
 "use client";
-import { IoMdMenu } from "react-icons/io";
-
 import React from "react";
 
 import { usePathname } from "next/navigation";
@@ -24,12 +22,13 @@ function Navigation() {
         >
           <a href="/articles">Bài viết</a>
         </li>
+
         <li
           className={`hover:opacity-60 ${
-            pathname === "/research" ? "text-red-700" : ""
+            pathname === "/community" ? "text-red-700" : ""
           }`}
         >
-          <a href="/research">Nguyên Cứu</a>
+          <a href="/community">Cộng Đồng</a>
         </li>
         <li
           className={`hover:opacity-60 ${

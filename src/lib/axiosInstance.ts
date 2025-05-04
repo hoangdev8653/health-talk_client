@@ -1,6 +1,10 @@
 import axios from "axios";
 import { BASE_URL_LOCAL } from "@/utils/constant";
-import { getLocalStorage, setLocalStorage } from "@/lib/localStorage";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  clearLocalStorage,
+} from "@/lib/localStorage";
 
 export const axiosConfig = axios.create({
   baseURL: BASE_URL_LOCAL,
@@ -41,13 +45,13 @@ axiosConfig.interceptors.response.use(
         );
         if (response.status !== 200) {
           console.error("Refresh token expired or invalid");
-          // window.location.href = "/login";
           return Promise.reject(error);
         }
         console.log("refreshToken: ", response);
 
         const accessToken = response.data?.newToken?.accessToken;
         if (!accessToken) {
+          clearLocalStorage();
           console.error("accessToken token is missing");
           return Promise.reject(error);
         }

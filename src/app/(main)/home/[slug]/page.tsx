@@ -39,13 +39,17 @@ const ArticleDetail: React.FC = () => {
             {articleDetail?.title}
           </p>
           <div className="my-8 w-full">
-            <Image
-              className="w-full object-cover h-[700px]"
-              width={800}
-              height={700}
-              src={articleDetail?.image || "/default_image.jpg"}
-              alt={articleDetail?.slug || "default image"}
-            />
+            {articleDetail?.image ? (
+              <Image
+                className="w-full object-cover h-[700px]"
+                width={800}
+                height={700}
+                src={articleDetail.image}
+                alt={articleDetail.slug || "default image"}
+              />
+            ) : (
+              <Loading />
+            )}
           </div>
           <div className="flex gap-4 flex-wrap tablet:block">
             <div className="tablet:w-full w-[65%] ">

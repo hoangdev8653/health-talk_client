@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { AiOutlineLike } from "react-icons/ai";
 
 interface propsComment {
-  slug: string;
+  slug?: string;
 }
 
 type valueComment = {

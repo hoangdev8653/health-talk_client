@@ -1,4 +1,4 @@
-import { getAllCategoryApi } from "@/apis/category";
+import { getAllCategoryApi, createCategory } from "@/apis/category";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getAllCategoryThunk = createAsyncThunk(
@@ -6,6 +6,18 @@ export const getAllCategoryThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await getAllCategoryApi();
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const createCategoryThunk = createAsyncThunk(
+  "categories/create",
+  async (data: any, thunkAPI) => {
+    try {
+      const response = await createCategory(data);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

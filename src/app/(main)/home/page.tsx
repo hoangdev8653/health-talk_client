@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import { io, Socket } from "socket.io-client";
 import Banner from "./Banner";
-import Content from "./Content";
+
+const Content = React.lazy(() => import("./Content"));
 
 const host = "http://localhost:3007";
 
@@ -34,7 +35,10 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      <Content />
+
+      <Suspense fallback={<div>Đang tải nội dung...</div>}>
+        <Content />
+      </Suspense>
     </div>
   );
 }

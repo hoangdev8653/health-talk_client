@@ -7,9 +7,10 @@ export const getAllCategoryApi = async () => {
   });
 };
 
-// export const getCategoryById = async (id) => {
-//   return await axiosInstance({
-//     method: "get",
-//     url: "/categoryById/",
-//   });
-// };
+export const createCategory = async (data: any) => {
+  return await axiosConfig({
+    method: "post",
+    url: "/categories/create",
+    data,
+  });
+};

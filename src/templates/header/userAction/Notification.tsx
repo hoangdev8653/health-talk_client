@@ -62,7 +62,7 @@ function Notification() {
             }
             className="flex items-center justify-center w-5 h-5  text-white rounded-full text-sm font-bold"
           >
-            {totalNotificationUnRead}
+            {totalNotificationUnRead > 0 ? totalNotificationUnRead : ""}
           </div>
         </div>
       </div>

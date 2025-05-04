@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllUserThunk } from "@/stores/thunks/user";
-import { CiSearch } from "react-icons/ci";
 import formatDate from "@/utils/formatDate";
 import Image from "next/image";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { usePagination } from "@/hooks/usePagination";
+import { IoMdLock } from "react-icons/io";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,53 +13,31 @@ import {
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import FormSearch from "@/components/formSearch";
 
 function User() {
-  const [sortOrder, setSortOrder] = useState("newest");
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(getAllUserThunk());
   }, []);
-
-  const sortUsers = useMemo(() => {
-    if (!data?.data?.content) return [];
-    return [...data?.data?.content].sort((a, b) => {
-      return sortOrder === "newest"
-        ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    });
-  }, [sortOrder, data]);
 
   return (
     <div className="bg-white rounded-2xl p-6 my-8 w-full">
       <div className="flex justify-between">
         <p className="font-bold text-xl mx-4">All Users</p>
         <div className="flex gap-2 ">
-          <div className="flex items-center border-[1px] border-solid border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
-            <CiSearch className="text-2xl text-gray-800 cursor-pointer" />
-            <input
-              type="text"
-              placeholder="Search By Name Product"
-              className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none "
-            />
-          </div>
-          <div className="flex items-center">
-            <span>Sort by</span>
-            <select
-              title="sort by"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="border p-1 bg-white text-black"
+          <FormSearch placholder="Search By Name User" />
+          <a href="http://localhost:3000/register">
+            <button
+              className="bg-blue-500 hover:bg-blue-600 rounded-2xl text-white font-semibold px-5 py-2  shadow-md transition"
+              onClick={() => console.info("Redirect to add new article page")}
             >
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-            </select>
-          </div>
+              New User
+            </button>
+          </a>
         </div>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full my-2">
@@ -81,13 +59,13 @@ function User() {
               <th scope="col" className="px-6 py-3 text-center">
                 CreateAt
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-center">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {sortUsers?.map((item: any, index: number) => (
+            {data?.data?.content?.map((item: any, index: number) => (
               <tr
                 key={index}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
@@ -104,12 +82,11 @@ function User() {
                 <td className="px-6 py-4 text-center">{item?.username}</td>
                 <td className="px-6 py-4 text-center">{item?.email}</td>
                 <td className="px-6 py-4 text-center">{item?.role}</td>
-
-                <td className="px-6 py-4  text-center">
+                <td className="px-6 py-4 text-center">
                   {formatDate(item?.createdAt)}
                 </td>
                 <td className="px-6 py-4  text-center ">
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-center">
                     <div>
                       <AlertDialog>
                         <AlertDialogTrigger>
@@ -117,49 +94,63 @@ function User() {
                         </AlertDialogTrigger>
 
                         <AlertDialogContent className="bg-gray-100">
-                          <AlertDialogHeader>
-                            <AlertDialogDescription>
-                              <div className="bg-gray-100 ">
-                                <div className="my-4">
-                                  <label>Old Password</label>
+                          <AlertDialogDescription>
+                            <div className="bg-gray-100 w-full">
+                              <div className="my-4 flex gap-2">
+                                <div className="w-1/2">
+                                  <label>User name</label>
                                   <input
-                                    title="old password"
-                                    type="password"
+                                    title="user name"
+                                    type="text"
                                     className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
                                   />
                                 </div>
-
-                                <div className="my-4">
-                                  <label>New Password</label>
+                                <div className="w-1/2">
+                                  <label>Email</label>
                                   <input
-                                    title="old password"
-                                    type="password"
-                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid"
-                                  />
-                                </div>
-                                <div className="my-4">
-                                  <label>Confirm New Password</label>
-                                  <input
-                                    title="old password"
-                                    type="password"
-                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid"
+                                    title="Email"
+                                    type="email"
+                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
                                   />
                                 </div>
                               </div>
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
+                              <div className="my-4 flex gap-2">
+                                <div className="w-1/2 ">
+                                  <label form="user">Role</label>
+                                  <select
+                                    title="role"
+                                    className="gap-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black p-2"
+                                    id="user"
+                                    name="carlist"
+                                    form="carform"
+                                  >
+                                    <option value="user">user</option>
+                                    <option value="admnin">admin</option>
+                                  </select>
+                                </div>
+                                <div className="w-1/2">
+                                  <label>status</label>
+                                  <input
+                                    title="Email"
+                                    type="email"
+                                    className="px-3 py-2 w-full border-gray-200 border-[1px] border-solid bg-white text-black"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </AlertDialogDescription>
                           <AlertDialogFooter>
                             <AlertDialogCancel className="bg-red-500 text-white rounded font-semibold ">
                               Cancel
                             </AlertDialogCancel>
                             <AlertDialogAction className="bg-green-500 text-black font-semibold rounded">
-                              Continue
+                              Save
                             </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
                     </div>
-                    {/* <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" /> */}
+                    <IoMdLock className="text-2xl text-blue-500 hover:opacity-65 cursor-pointer" />
                     <MdDeleteForever className="text-2xl text-red-600 hover:opacity-65 cursor-pointer" />
                   </div>
                 </td>
@@ -172,12 +163,6 @@ function User() {
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2">
               Previous
             </button>
-            {/* {usePagination({
-              totalItems: 10,
-              itemsPerPage: 4,
-              currentPage: 1,
-              siblingCount: 2,
-            })} */}
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2">
               Next
             </button>

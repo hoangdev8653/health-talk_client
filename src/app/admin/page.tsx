@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { RxDashboard } from "react-icons/rx";
-import { FaStar, FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import {
   MdOutlineArticle,
   MdOutlineCategory,
   MdHelpOutline,
+  MdOutlineRadio,
 } from "react-icons/md";
 import Image from "next/image";
 import Article from "@/app/admin/Article";
@@ -13,16 +14,18 @@ import Category from "@/app/admin/Category";
 import User from "@/app/admin/User";
 import Dashboard from "@/app/admin/Dashboard";
 import Help from "@/app/admin/Help";
-// import Hello from ""
+import Postcard from "@/app/admin/Postcard";
+import { getLocalStorage } from "@/lib/localStorage";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Dashboard");
-
+  const user = getLocalStorage("user");
   const tabs = [
     { title: "Dashboard", icon: <RxDashboard /> },
     { title: "User", icon: <FaRegUserCircle /> },
     { title: "Article", icon: <MdOutlineArticle /> },
     { title: "Category", icon: <MdOutlineCategory /> },
+    { title: "Postcard", icon: <MdOutlineRadio /> },
     { title: "Help", icon: <MdHelpOutline /> },
   ];
 
@@ -34,8 +37,11 @@ function Index() {
         return <User />;
       case "Category":
         return <Category />;
+      case "Postcard":
+        return <Postcard />;
       case "Help":
         return <Help />;
+
       default:
         return <Dashboard />;
     }
@@ -44,11 +50,16 @@ function Index() {
   return (
     <div className="w-full flex h-screen">
       <div className="relative w-2/12 bg-white h-screen  ">
-        <div className="flex gap-1 cursor-pointer p-4 my-4 mx-2">
-          <FaStar className="text-3xl text-black font-bold" />
-          <p className="flex text-2xl gap-1">
-            Dashboard <span className="text-sm text-gray-200 mt-2">H7</span>
-          </p>
+        <div className=" cursor-pointer p-4 m-2 ">
+          <a title="H7" href="/admin">
+            <Image
+              src="/images/logo_h7.png"
+              alt="logo"
+              width={100}
+              height={100}
+              className="w-16 h-16 object-cover mx-auto"
+            />
+          </a>
         </div>
         {tabs.map((tab: any, index: number) => (
           <div
@@ -85,7 +96,7 @@ function Index() {
         <div className="mx-16">
           <div className="flex justify-between my-6">
             <div className="text-xl font-semibold flex gap-1">
-              <p>Hello Huy Hoàng</p>
+              <p>Hello {user?.username}</p>
               <img className="size-7" src="/hello.svg" alt="start Icon" />
             </div>
           </div>

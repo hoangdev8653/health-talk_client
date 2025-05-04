@@ -1,4 +1,7 @@
-import { getAllCategoryThunk } from "@/stores/thunks/category";
+import {
+  getAllCategoryThunk,
+  createCategoryThunk,
+} from "@/stores/thunks/category";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CategoryState {
@@ -26,9 +29,20 @@ const categorySlice = createSlice({
       .addCase(getAllCategoryThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
-        // console.log(state.data);
       })
       .addCase(getAllCategoryThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(createCategoryThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createCategoryThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = [...state.data, action.payload];
+      })
+      .addCase(createCategoryThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
