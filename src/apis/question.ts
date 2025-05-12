@@ -21,10 +21,17 @@ export const getQuestionByTagId = async (id: string) => {
   });
 };
 
+export const getQuestionBySlug = async (slug: string) => {
+  return await axiosConfig({
+    method: "get",
+    url: `/question/${slug}`,
+  });
+};
+
 export const createQuestion = async (data: any) => {
   return await axiosConfig({
     method: "post",
-    url: "/question/create",
+    url: "/question/createQuestionTag",
     data: data,
   });
 };

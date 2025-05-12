@@ -16,25 +16,37 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import FormSearch from "@/components/formSearch";
+import { CiSearch } from "react-icons/ci";
 
 function User() {
+  const [searchTerm, setSearchTerm] = React.useState("");
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.user);
   useEffect(() => {
     dispatch(getAllUserThunk());
   }, []);
+  const filteredUsers = data?.data?.content?.filter((item: any) =>
+    item?.username?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="bg-white rounded-2xl p-6 my-8 w-full">
       <div className="flex justify-between">
         <p className="font-bold text-xl mx-4">All Users</p>
-        <div className="flex gap-2 ">
-          <FormSearch placholder="Search By Name User" />
-          <a href="http://localhost:3000/register">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 rounded-2xl text-white font-semibold px-5 py-2  shadow-md transition"
-              onClick={() => console.info("Redirect to add new article page")}
-            >
+        <div className="flex gap-2 items-center">
+          <div className="flex items-center border border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
+            <CiSearch className="text-2xl text-black font-bold cursor-pointer hover:opacity-60" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search By Username"
+              className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none w-full"
+            />
+          </div>
+
+          <a href="http://localhost:3000/post">
+            <button className="bg-blue-500 hover:bg-blue-600 rounded-2xl text-white font-semibold px-5 py-2  shadow-md transition">
               New User
             </button>
           </a>
@@ -65,7 +77,7 @@ function User() {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.content?.map((item: any, index: number) => (
+            {filteredUsers?.map((item: any, index: number) => (
               <tr
                 key={index}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"

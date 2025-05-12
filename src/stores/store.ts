@@ -10,6 +10,7 @@ import ReviewArticleReducer from "@/stores/slices/reviewArticle";
 import ManagerUserReducer from "@/stores/slices/managerUser";
 import QuestionReducer from "@/stores/slices/question";
 import TagReducer from "@/stores/slices/tag";
+import AnswerReducer from "@/stores/slices/answer";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     managerUser: ManagerUserReducer,
     question: QuestionReducer,
     tag: TagReducer,
+    answer: AnswerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

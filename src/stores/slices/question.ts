@@ -2,6 +2,7 @@ import {
   getQuestionByTagIdThunk,
   getQuestionByIdThunk,
   getAllQuestionThunk,
+  getQuestionBySlugThunk,
   createQuestionThunk,
   deleteQuestionThunk,
 } from "@/stores/thunks/question";
@@ -34,6 +35,18 @@ const quesionSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(getAllQuestionThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(getQuestionBySlugThunk.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getQuestionBySlugThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(getQuestionBySlugThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

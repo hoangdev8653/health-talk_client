@@ -17,9 +17,7 @@ import ArticlePreviewBanner from "@/components/ArticlePreviewBanner";
 
 const ArticleDetail: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { articleDetail, loading, comment } = useAppSelector(
-    (state) => state.article
-  );
+  const { articleDetail, loading } = useAppSelector((state) => state.article);
   const { allArticles } = useAppSelector((state) => state.article);
   const pathname = usePathname();
   const slug = pathname?.split("/").pop() || "";

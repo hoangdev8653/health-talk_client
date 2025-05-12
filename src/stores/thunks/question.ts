@@ -2,6 +2,7 @@ import {
   getAllQuestion,
   getQuestionByTagId,
   getQuestionById,
+  getQuestionBySlug,
   createQuestion,
   deleteQuestion,
 } from "@/apis/question";
@@ -42,8 +43,20 @@ export const getQuestionByTagIdThunk = createAsyncThunk(
   }
 );
 
+export const getQuestionBySlugThunk = createAsyncThunk(
+  "/question/slug",
+  async (slug: string, thunkAPI) => {
+    try {
+      const response = await getQuestionBySlug(slug);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const createQuestionThunk = createAsyncThunk(
-  "/question/create",
+  "/question/createQuestionTag",
   async (data: any, thunkAPI) => {
     try {
       const response = await createQuestion(data);

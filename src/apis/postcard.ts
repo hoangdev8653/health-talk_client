@@ -6,3 +6,17 @@ export const getAllPostcard = async () => {
     url: "/postcard",
   });
 };
+
+export const createPostcard = async (data: any) => {
+  return await axiosConfig({
+    method: "post",
+    url: "/postcard/create",
+  });
+};
+
+export const deletePostcard = async (id: string) => {
+  return await axiosConfig({
+    method: "delete",
+    url: `postcard/delete/?id=${id}`,
+  });
+};

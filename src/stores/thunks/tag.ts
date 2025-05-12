@@ -4,8 +4,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const getAllTagsThunk = createAsyncThunk("/tag", async (_, thunkApi) => {
   try {
     const response = await getAllTags();
-    console.log(response);
-
     return response;
   } catch (error: any) {
     return thunkApi.rejectWithValue(error.response.data);

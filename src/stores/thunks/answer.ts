@@ -1,15 +1,11 @@
-import {
-  getAllPostcard,
-  createPostcard,
-  deletePostcard,
-} from "@/apis/postcard";
+import { getAnswerBySlug, createAnswer, deleteAnswer } from "@/apis/answer";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getAllPostcardThunk = createAsyncThunk(
-  "/postcard",
-  async (_, thunkAPI) => {
+export const getAnswerBySlugThunk = createAsyncThunk(
+  "answer/bySlug",
+  async (slug: string, thunkAPI) => {
     try {
-      const response = await getAllPostcard();
+      const response = await getAnswerBySlug(slug);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -17,11 +13,13 @@ export const getAllPostcardThunk = createAsyncThunk(
   }
 );
 
-export const createPostcardThunk = createAsyncThunk(
-  "/postcard/create",
+export const createAnswerThunk = createAsyncThunk(
+  "answer/create",
   async (data: any, thunkAPI) => {
     try {
-      const response = await createPostcard(data);
+      const response = await createAnswer(data);
+      // console.log(response);
+
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -29,11 +27,11 @@ export const createPostcardThunk = createAsyncThunk(
   }
 );
 
-export const deletePostcardThunk = createAsyncThunk(
-  "/postcard/delete",
+export const deleteAnswerThunk = createAsyncThunk(
+  "answer/delete",
   async (id: string, thunkAPI) => {
     try {
-      const response = await deletePostcard(id);
+      const response = await deleteAnswer(id);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

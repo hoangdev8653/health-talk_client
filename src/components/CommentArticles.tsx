@@ -1,8 +1,6 @@
 "use client";
-
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { FaAngleDown } from "react-icons/fa6";
 import { articleValidate } from "@/validations/article";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -16,12 +14,12 @@ import {
   getLikeBySlugArticleThunk,
   createLikeThunk,
 } from "@/stores/thunks/like";
-import { SortValue } from "@/components/SortValue";
 import { useRouter } from "next/navigation";
 import { AiOutlineLike } from "react-icons/ai";
+import { getLocalStorage } from "@/lib/localStorage";
 
 interface propsComment {
-  slug?: string;
+  slug?: string | null | undefined;
 }
 
 type valueComment = {
@@ -39,11 +37,11 @@ type valueComment = {
 function CommentArticles({ slug }: propsComment) {
   const router = useRouter();
   const dispacth = useAppDispatch();
-  const [actionComment, setActionComment] = useState<boolean>(false);
   const [sortOrder, setSortOrder] = useState<string>("newest");
   const { data } = useAppSelector((state) => state.reviewArticle);
   const like = useAppSelector((state) => state.like);
   const [isLike, setIsLike] = useState<boolean>(like.isLike);
+  const user = getLocalStorage("user");
 
   useEffect(() => {
     dispacth(getReviewBySlugArticleThunk(slug));
@@ -55,9 +53,6 @@ function CommentArticles({ slug }: propsComment) {
       ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   });
-
-  // const a = SortValue([...data]).newest;
-  // console.log(a);
 
   const {
     register,
@@ -83,7 +78,7 @@ function CommentArticles({ slug }: propsComment) {
         articleId: data[0]?.Article?.id,
       })
     );
-    if (result.payload) {
+    if (result.payload === 201) {
       reset();
     }
   };
@@ -172,13 +167,11 @@ function CommentArticles({ slug }: propsComment) {
                       alt={item?.User?.id}
                     />
                   </div>
-                  <div
-                    onMouseEnter={() => setActionComment(true)}
-                    onMouseLeave={() => setActionComment(false)}
-                    className="flex-1 block relative "
-                  >
+                  <div className="flex-1 block relative ">
                     <p className="font-semibold text-blue-800 ">
-                      {item?.User?.username}
+                      {item?.User?.username
+                        ? item?.User?.username
+                        : user.username}
                     </p>
                     <p className="text-sm my-1 text-gray-500">
                       {item?.content}
@@ -194,15 +187,6 @@ function CommentArticles({ slug }: propsComment) {
                         {formatDate(item?.createdAt)}
                       </span>
                     </div>
-                    {actionComment ? (
-                      <>
-                        <div className="right-4 top-2 absolute">
-                          <FaAngleDown className="text-xl text-gray-500" />
-                        </div>
-                      </>
-                    ) : (
-                      <></>
-                    )}
                   </div>
                 </div>
               </div>

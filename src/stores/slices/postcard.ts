@@ -1,4 +1,8 @@
-import { getAllPostcardThunk } from "@/stores/thunks/postcard";
+import {
+  getAllPostcardThunk,
+  createPostcardThunk,
+  deletePostcardThunk,
+} from "@/stores/thunks/postcard";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface PostcardState {
@@ -28,6 +32,30 @@ const postcardSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(getAllPostcardThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(createPostcardThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createPostcardThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(createPostcardThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deletePostcardThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deletePostcardThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(deletePostcardThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

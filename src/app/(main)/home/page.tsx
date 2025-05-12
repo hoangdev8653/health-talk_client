@@ -1,44 +1,39 @@
 "use client";
-import React, { useEffect, useRef, useState, Suspense } from "react";
-import { io, Socket } from "socket.io-client";
+
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
+import dynamic from "next/dynamic";
 import Banner from "./Banner";
 
-const Content = React.lazy(() => import("./Content"));
+const Content = dynamic(() => import("./Content"), {
+  loading: () => <div>Đang tải nội dung...</div>,
+  ssr: false, // nếu không cần render phía server
+});
 
-const host = "http://localhost:3007";
+// const host = "http://localhost:3007";
 
 export default function Home() {
-  const [mess, setMess] = useState([]);
-  const [message, setMessage] = useState("");
-  const [id, setId] = useState<string | undefined>();
+  // useEffect(() => {
+  //   const socket = io(host);
 
-  const socketRef = useRef<Socket | null>(null);
+  //   socket.on("connect", () => {
+  //     console.log("Kết nối socket:", socket.id);
+  //   });
 
-  useEffect(() => {
-    socketRef.current = io(host);
+  //   socket.emit("test-event", "Hello từ client!");
+  //   socket.on("test-response", (data) => {
+  //     console.log("Phản hồi từ server:", data);
+  //   });
 
-    socketRef.current.on("connect", () => {
-      console.log("Kết nối thành công với server:", socketRef.current?.id);
-    });
-
-    socketRef.current.on("test-response", (data) => {
-      console.log("Phản hồi từ server:", data);
-    });
-
-    socketRef.current.emit("test-event", "Hello từ client!");
-
-    return () => {
-      socketRef.current?.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   return (
     <div>
       <Banner />
-
-      <Suspense fallback={<div>Đang tải nội dung...</div>}>
-        <Content />
-      </Suspense>
+      <Content />
     </div>
   );
 }
