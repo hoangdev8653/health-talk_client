@@ -7,28 +7,28 @@ import Banner from "./Banner";
 
 const Content = dynamic(() => import("./Content"), {
   loading: () => <div>Đang tải nội dung...</div>,
-  ssr: false, // nếu không cần render phía server
+  ssr: false,
 });
 
-// const host = "http://localhost:3007";
+const host = "http://localhost:3007";
 
 export default function Home() {
-  // useEffect(() => {
-  //   const socket = io(host);
+  useEffect(() => {
+    const socket = io(host);
 
-  //   socket.on("connect", () => {
-  //     console.log("Kết nối socket:", socket.id);
-  //   });
+    socket.on("connect", () => {
+      console.log("Kết nối socket:", socket.id);
+    });
 
-  //   socket.emit("test-event", "Hello từ client!");
-  //   socket.on("test-response", (data) => {
-  //     console.log("Phản hồi từ server:", data);
-  //   });
+    socket.emit("test-event", "Hello từ client!");
+    socket.on("test-response", (data) => {
+      console.log("Phản hồi từ server:", data);
+    });
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <div>

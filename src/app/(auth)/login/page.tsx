@@ -11,6 +11,8 @@ import { userValidate } from "@/validations/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
 function Login() {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -25,7 +27,10 @@ function Login() {
   const onSubmit = async (data: any) => {
     const result = await dispatch(loginThunk(data));
     if (result.type === "user/dang-nhap/fulfilled") {
-      router.push("/");
+      toast.success("Đăng nhập thành công");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
     }
   };
 

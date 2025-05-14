@@ -56,7 +56,7 @@ const likeSlice = createSlice({
         const user = getLocalStorage("user");
         state.totalLikes = action.payload.data.content.length;
         state.isLike = action.payload.data.content.some(
-          (item: any) => item.User.id === user.id
+          (item: any) => item?.User?.id === user?.id
         );
       })
       .addCase(getLikeBySlugArticleThunk.rejected, (state, action) => {

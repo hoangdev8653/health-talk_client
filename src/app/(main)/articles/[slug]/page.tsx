@@ -44,7 +44,8 @@ const Category: React.FC = () => {
   const categoryName =
     article?.data?.data?.content?.[0]?.Category?.name || "Loading...";
   const categoryImage =
-    article?.data?.data?.content?.[0]?.Category?.image || "/default-image.jpg";
+    article?.data?.data?.content?.[0]?.Category?.image ||
+    "/images/avatar_default.jpg";
 
   return (
     <div className="w-full">
@@ -78,7 +79,7 @@ const Category: React.FC = () => {
                       width={400}
                       height={250}
                       className="object-cover w-full h-[180px]"
-                      src={item.image || "/default-image.jpg"}
+                      src={item.image || "/images/avatar_default.jpg"}
                       alt={item.slug}
                     />
                     <div className="mx-4 my-2">

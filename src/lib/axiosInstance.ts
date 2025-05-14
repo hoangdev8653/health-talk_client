@@ -45,6 +45,7 @@ axiosConfig.interceptors.response.use(
         );
         if (response.status !== 200) {
           console.error("Refresh token expired or invalid");
+          clearLocalStorage();
           return Promise.reject(error);
         }
         console.log("refreshToken: ", response);

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import MyArticles from "./MyArticles";
 import Frofile from "./Profile";
-import Account from "./Account";
+import Account from "./account/Account";
 import Notification from "./Notification";
 import { FaFileAlt, FaUser } from "react-icons/fa";
 import { IoIosSettings, IoIosNotifications } from "react-icons/io";

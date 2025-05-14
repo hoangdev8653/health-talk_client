@@ -10,6 +10,7 @@ import { getAllCategoryThunk } from "@/stores/thunks/category";
 import Image from "next/image";
 import { createArticleThunk } from "@/stores/thunks/article";
 import Loading from "@/components/Loading";
+import { toast } from "react-toastify";
 
 type categoryValue = {
   id: string;
@@ -60,7 +61,10 @@ const PostEditor: React.FC = () => {
     if (file) {
       formData.append("image", file);
     }
-    dispatch(createArticleThunk(formData));
+    const result = dispatch(createArticleThunk(formData));
+    if (result.type === "article/create/fulfilled") {
+      toast.success("Đăng nhập thành công");
+    }
   };
 
   return (

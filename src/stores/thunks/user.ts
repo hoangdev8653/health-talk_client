@@ -1,4 +1,10 @@
-import { loginApi, registerApi, updateAvarta, getAllUser } from "@/apis/user";
+import {
+  loginApi,
+  registerApi,
+  updateAvarta,
+  getAllUser,
+  updatePassword,
+} from "@/apis/user";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginType, registerType } from "@/types/user";
 
@@ -40,12 +46,32 @@ export const loginThunk = createAsyncThunk(
 
 export const updateAvatarThunk = createAsyncThunk(
   "user/updateAvatar",
-  async (data: any, thunkAPI) => {
+  async (data: File, thunkAPI) => {
     try {
-      const response = await updateAvarta(data);
+      const formData = new FormData();
+      formData.append("image", data);
+
+      const response = await updateAvarta(formData);
+
+      console.log("Response from server:", response);
       return response;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      console.error("Error updating avatar:", error);
+      return thunkAPI.rejectWithValue(
+        error.response?.data || "Something went wrong"
+      );
+    }
+  }
+);
+
+export const updatePasswordThunk = createAsyncThunk(
+  "user/updatePassword",
+  async (data: any, thunkAPI) => {
+    try {
+      const response = await updatePassword(data);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
 );

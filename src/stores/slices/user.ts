@@ -62,10 +62,9 @@ const userSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        localStorage.setItem(
-          "user",
-          JSON.stringify(action.payload.data.content)
-        );
+        const { password, ...userContent } = action.payload.data.content;
+
+        localStorage.setItem("user", JSON.stringify(userContent));
         localStorage.setItem(
           "accessToken",
           JSON.stringify(action.payload.data.accessToken)

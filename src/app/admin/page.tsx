@@ -81,7 +81,7 @@ function Index() {
             <Image
               width={54}
               height={54}
-              src="/images/avatar-default.jpg"
+              src="/images/avatar_default.jpg"
               alt="avatar_defaute"
               className="w-16 h-16 object-cover rounded-full my-2 mx-2"
             />

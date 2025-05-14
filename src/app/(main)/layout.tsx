@@ -4,7 +4,6 @@ import BackToTop from "@/components/BackToTop";
 
 export const metadata = {
   title: "H7 Life",
-  // description: "Quản trị hệ thống",
 };
 
 export default function MainLayout({
@@ -14,7 +13,7 @@ export default function MainLayout({
 }) {
   return (
     <html className="light" lang="en">
-      <body>
+      <body className="antialiased">
         <Header />
         <div>{children}</div>
         <BackToTop />

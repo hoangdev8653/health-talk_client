@@ -17,7 +17,22 @@ const login = Yup.object().shape({
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
 });
 
+const updatePassword = Yup.object().shape({
+  password: Yup.string().required("Vui lòng nhập mật khẩu hiện tại."),
+  newPassword: Yup.string()
+    .required("Vui lòng nhập mật khẩu mới.")
+    .min(8, "Mật khẩu mới phải có ít nhất 8 ký tự.")
+    .notOneOf(
+      [Yup.ref("password")],
+      "Mật khẩu mới phải khác mật khẩu hiện tại."
+    ),
+  confirmNewPassword: Yup.string()
+    .required("Vui lòng xác nhận mật khẩu mới.")
+    .oneOf([Yup.ref("newPassword")], "Xác nhận mật khẩu không khớp."),
+});
+
 export const userValidate = {
   register,
   login,
+  updatePassword,
 };

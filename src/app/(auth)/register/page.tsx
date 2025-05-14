@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { MdEmail } from "react-icons/md";
 import { FaLock, FaUser } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
 
 function Register() {
   const dispatch = useAppDispatch();
@@ -27,7 +28,10 @@ function Register() {
   const onSubmit = async (data: any) => {
     const result = await dispatch(registerThunk(data));
     if (result.type === "user/dang-ki/fulfilled") {
-      router.push("/login");
+      toast.success("Đăng Kí thành công");
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
     }
   };
   return (

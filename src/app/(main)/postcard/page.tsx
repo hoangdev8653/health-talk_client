@@ -4,13 +4,12 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { FaFacebookSquare, FaYoutube } from "react-icons/fa";
 import VideoPostcard from "@/components/VideoPostcard";
-import ArticlePreviewBanner from "@/components/ArticlePreviewBanner";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getAllPostcardThunk } from "@/stores/thunks/postcard";
 
 function Postcard() {
   const dispacth = useAppDispatch();
-  const { data, loading } = useAppSelector((state) => state.postcard);
+  const { data } = useAppSelector((state) => state.postcard);
 
   useEffect(() => {
     dispacth(getAllPostcardThunk());
@@ -29,10 +28,9 @@ function Postcard() {
         <Image
           src="/images/poster_postcard.jpg"
           alt="poster_postcard"
+          width={1200}
           height={800}
-          width={0}
-          layout="responsive"
-          objectFit="cover"
+          className="object-cover w-full h-auto"
         />
       </div>
       <div className="w-4/5 mx-auto ">
@@ -83,7 +81,6 @@ function Postcard() {
                 <FaYoutube className="text-4xl text-white" />
               </div>
             </div>
-            {/* <ArticlePreviewBanner data={data} /> */}
           </div>
         </div>
         <div className="grid grid-cols-3 gap-8 my-4 tablet:grid-cols-1 ">

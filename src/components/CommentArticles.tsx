@@ -54,6 +54,9 @@ function CommentArticles({ slug }: propsComment) {
       : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   });
 
+  // console.log([...data]);
+  // console.log(data);
+
   const {
     register,
     handleSubmit,
@@ -72,6 +75,10 @@ function CommentArticles({ slug }: propsComment) {
   const content = watch("content");
 
   const onSubmit = async (value: any) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
     const result = await dispacth(
       createReviewArticleThunk({
         ...value,
@@ -120,7 +127,7 @@ function CommentArticles({ slug }: propsComment) {
           <Image
             width={48}
             height={48}
-            src="https://scontent.fdad3-6.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s48x48&_nc_cat=1&ccb=1-7&_nc_sid=22ec41&_nc_ohc=zZKR384LhekQ7kNvgFEZ1HE&_nc_zt=24&_nc_ht=scontent.fdad3-6.fna&edm=AJqh0Q8EAAAA&_nc_gid=A5RU23Zff_zA6eAYjgFGt3M&oh=00_AYCf1KUwEx-mG0ahUNMriw4SEW_AwzarvJEYWAjjLS3M-Q&oe=67C7D8FA"
+            src={"/images/avatar_default.jpg"}
             alt="avatar_defaut"
           />
         </div>
@@ -158,20 +165,16 @@ function CommentArticles({ slug }: propsComment) {
                 <div className="flex gap-2 my-4">
                   <div className="avatar cursor-pointer">
                     <Image
+                      className="w-12 h-12 object-cover"
                       width={48}
                       height={48}
-                      src={
-                        item.User?.image ||
-                        "https://scontent.fdad3-6.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s48x48&_nc_cat=1&ccb=1-7&_nc_sid=22ec41&_nc_ohc=zZKR384LhekQ7kNvgFEZ1HE&_nc_zt=24&_nc_ht=scontent.fdad3-6.fna&edm=AJqh0Q8EAAAA&_nc_gid=A5RU23Zff_zA6eAYjgFGt3M&oh=00_AYCf1KUwEx-mG0ahUNMriw4SEW_AwzarvJEYWAjjLS3M-Q&oe=67C7D8FA"
-                      }
+                      src={item?.User?.image || "/images/avatar_default.jpg"}
                       alt={item?.User?.id}
                     />
                   </div>
                   <div className="flex-1 block relative ">
                     <p className="font-semibold text-blue-800 ">
-                      {item?.User?.username
-                        ? item?.User?.username
-                        : user.username}
+                      {item?.User?.username || user?.username}
                     </p>
                     <p className="text-sm my-1 text-gray-500">
                       {item?.content}

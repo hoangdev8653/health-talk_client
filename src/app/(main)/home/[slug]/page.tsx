@@ -42,8 +42,9 @@ const ArticleDetail: React.FC = () => {
                 className="w-full object-cover h-[700px]"
                 width={800}
                 height={700}
-                src={articleDetail.image}
-                alt={articleDetail.slug || "default image"}
+                src={articleDetail?.image || "/images/avatar_default.jpg"}
+                alt={articleDetail?.slug || "default image"}
+                style={{ objectFit: "cover" }}
               />
             ) : (
               <Loading />

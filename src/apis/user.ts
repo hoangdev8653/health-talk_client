@@ -26,8 +26,16 @@ export const loginApi = async (data: loginType) => {
 
 export const updateAvarta = async (data: any) => {
   return await axiosConfig({
-    method: "put",
+    method: "post",
     url: "/user/updateAvatar",
+    data,
+  });
+};
+
+export const updatePassword = async (data: any) => {
+  return await axiosConfig({
+    method: "post",
+    url: "/user/updatePassword",
     data,
   });
 };
