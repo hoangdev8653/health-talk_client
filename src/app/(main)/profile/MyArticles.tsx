@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 
 function MyArticles() {
   const dispacth = useAppDispatch();
-  const { data, loading } = useAppSelector((state) => state.article);
+  const { data } = useAppSelector((state) => state.article);
 
   useEffect(() => {
     dispacth(getArticlesByUserThunk());

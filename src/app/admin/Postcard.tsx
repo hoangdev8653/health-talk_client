@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import Image from "next/image";
 import formatDate from "@/utils/formatDate";
 import { CiSearch } from "react-icons/ci";
+import Link from "next/link";
 
 function Postcard() {
   const dispatch = useAppDispatch();
@@ -48,11 +49,11 @@ function Postcard() {
               />
             </div>
 
-            <a href="http://localhost:3000/post">
+            <Link href="/post">
               <button className="bg-blue-500 hover:bg-blue-600 rounded-2xl text-white font-semibold px-5 py-2  shadow-md transition">
                 New Postcard
               </button>
-            </a>
+            </Link>
           </div>
         </div>
 

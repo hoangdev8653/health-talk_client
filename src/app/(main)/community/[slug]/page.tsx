@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getQuestionBySlugThunk } from "@/stores/thunks/question";
 import {
@@ -13,8 +13,7 @@ import formatDate from "@/utils/formatDate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { articleValidate } from "@/validations/article";
-import { FaAngleDown } from "react-icons/fa";
-import { getLocalStorage } from "@/lib/localStorage";
+import useLocalStorageUser from "@/components/UseLocalStorageUser";
 
 function QuestionDetail() {
   const dispatch = useAppDispatch();
@@ -22,9 +21,7 @@ function QuestionDetail() {
   const question = useAppSelector((state) => state.question);
   const answer = useAppSelector((state) => state.answer);
   const slug = pathname?.split("/").pop() || "";
-  const user = getLocalStorage("user");
-
-  // console.log(answer.data);
+  const user = useLocalStorageUser();
 
   useEffect(() => {
     if (slug) {
@@ -105,24 +102,21 @@ function QuestionDetail() {
               </div>
               <div className="my-4">
                 <div className="flex justify-end">
-                  <a
-                    href="/"
-                    className="px-2 py-2 bg-blue-50 rounded text-xs w-52 inline-block"
-                  >
+                  <div className="px-2 py-2 bg-blue-50 rounded text-xs w-52 inline-block">
                     <p className="text-gray-500 mb-1 mx-auto text-center">
                       asked{" "}
                       {formatDate(question?.data?.data?.content?.createdAt)}{" "}
                     </p>
                     <div className="flex items-center gap-2">
                       <Image
-                        className="w-7 h-7 rounded"
+                        className="w-7 h-7 rounded object-cover"
                         width={28}
                         height={28}
-                        src="/images/avatar-default.jpg"
-                        alt="avatar_default"
+                        src={user?.image}
+                        alt="avatar user"
                       />
                       <div className="text-sm">
-                        <p className="text-blue-500 hover:underline">
+                        <p className="text-blue-500 ">
                           {question?.data?.data?.content?.User?.username}
                         </p>
                         <div className="flex gap-1 text-[11px] items-center">
@@ -133,16 +127,17 @@ function QuestionDetail() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
                 <div className="mt-4">
                   <div className="w-full flex gap-2 my-6">
                     <div>
                       <Image
+                        className="object-cover"
                         width={48}
                         height={48}
-                        src="https://scontent.fdad3-6.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s48x48&_nc_cat=1&ccb=1-7&_nc_sid=22ec41&_nc_ohc=zZKR384LhekQ7kNvgFEZ1HE&_nc_zt=24&_nc_ht=scontent.fdad3-6.fna&edm=AJqh0Q8EAAAA&_nc_gid=A5RU23Zff_zA6eAYjgFGt3M&oh=00_AYCf1KUwEx-mG0ahUNMriw4SEW_AwzarvJEYWAjjLS3M-Q&oe=67C7D8FA"
-                        alt="avatar_defaut"
+                        src={user?.image}
+                        alt="avatar user"
                       />
                     </div>
                     <form

@@ -11,7 +11,7 @@ interface CategoryState {
 }
 
 const initialState: CategoryState = {
-  data: { content: [] },
+  data: [],
   loading: false,
   error: null,
 };

@@ -6,14 +6,14 @@ import { getAllQuestionThunk } from "@/stores/thunks/question";
 import { getAllTagsThunk } from "@/stores/thunks/tag";
 import formatDate from "@/utils/formatDate";
 import Link from "next/link";
-import { getLocalStorage } from "@/lib/localStorage";
+import useLocalStorageUser from "@/components/UseLocalStorageUser";
 
 function Community() {
   const dispatch = useAppDispatch();
   const question = useAppSelector((state) => state.question);
   const tag = useAppSelector((state) => state.tag);
   const [sortOrder, setSortOrder] = useState<string>("newest");
-  const user = getLocalStorage("user");
+  const user = useLocalStorageUser();
 
   useEffect(() => {
     dispatch(getAllQuestionThunk());

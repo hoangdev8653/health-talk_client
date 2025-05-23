@@ -16,19 +16,28 @@ import {
   AlertDialogFooter,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import FormSearch from "@/components/formSearch";
 import { categoryValidate } from "@/validations/category";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { CiSearch } from "react-icons/ci";
 
 function Category() {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.category);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    dispatch(getAllCategoryThunk());
+    const fetchData = async () => {
+      await dispatch(getAllCategoryThunk());
+    };
+    fetchData();
   }, []);
+
+  const filteredCategory = data?.data?.content?.filter((item: any) => {
+    item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+  console.log(filteredCategory);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -66,8 +75,17 @@ function Category() {
     <div className="bg-white rounded-2xl  p-6 my-8 w-full">
       <div className="flex justify-between">
         <p className="font-bold text-xl mx-4">All Categorys</p>
-        <div className="flex gap-2 ">
-          <FormSearch placholder="Search By Name Category" />
+        <div className="flex gap-2 items-center ">
+          <div className="flex items-center border border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
+            <CiSearch className="text-2xl text-black font-bold cursor-pointer hover:opacity-60" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search By Name Postcard"
+              className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none w-full"
+            />
+          </div>
           <AlertDialog>
             <AlertDialogTrigger>
               <button

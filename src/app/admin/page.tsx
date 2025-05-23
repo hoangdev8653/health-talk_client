@@ -17,24 +17,27 @@ import Help from "@/app/admin/Help";
 import Postcard from "@/app/admin/Postcard";
 import { getLocalStorage } from "@/lib/localStorage";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import UseLocalStorageUser from "@/components/UseLocalStorageUser";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  // const [user, setUser] = useState<any>(null);
+  const user = UseLocalStorageUser();
 
   useEffect(() => {
-    const userData = getLocalStorage("user");
-    setUser(userData);
-    if (!userData || userData.role !== "admin") {
-      router.replace("/home");
-    } else {
-      setIsChecking(false);
-    }
+    // const userData = getLocalStorage("user");
+    // setUser(userData);
+    // if (!userData || userData.role !== "admin") {
+    //   router.replace("/home");
+    // } else {
+    //   setIsChecking(false);
+    // }
   }, [router]);
 
-  if (isChecking) return null;
+  // if (isChecking) return null;
 
   const tabs = [
     { title: "Dashboard", icon: <RxDashboard /> },
@@ -97,13 +100,15 @@ function Index() {
             <Image
               width={54}
               height={54}
-              src="/images/avatar_default.jpg"
+              src={user?.image || "/images/avatar_default.jpg"}
               alt="avatar_defaute"
               className="w-16 h-16 object-cover rounded-full my-2 mx-2"
             />
           </div>
           <div className="my-2">
-            <h1 className="font-bold">Huy Hoàng</h1>
+            <Link href="/profile" className="font-bold">
+              {user?.username}
+            </Link>
             <p className="opacity-60 text-xs">Profile Manager</p>
           </div>
         </div>

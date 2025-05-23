@@ -54,9 +54,6 @@ function CommentArticles({ slug }: propsComment) {
       : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   });
 
-  // console.log([...data]);
-  // console.log(data);
-
   const {
     register,
     handleSubmit,
@@ -68,6 +65,10 @@ function CommentArticles({ slug }: propsComment) {
   });
 
   const handleLike = (articleId: string) => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
     setIsLike(!isLike);
     dispacth(createLikeThunk(articleId));
   };

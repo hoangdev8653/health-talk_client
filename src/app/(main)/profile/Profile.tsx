@@ -1,11 +1,11 @@
 import React from "react";
-import { getLocalStorage } from "@/lib/localStorage";
+import useLocalStorageUser from "@/components/UseLocalStorageUser";
 
 function Profile() {
-  const user = getLocalStorage("user");
+  const user = useLocalStorageUser();
 
   const handleButtonClick = () => {
-    fileInputRef.current.click();
+    // fileInputRef.current.click();
   };
 
   return (
@@ -52,43 +52,7 @@ function Profile() {
           className="p-2 border-solid border-2 border-gray-100 rounded w-4/5 h-32 focus:outline-none"
         />
       </div>
-      {/* <div className="my-3">
-        <h1 className="text-2xl ">Profile picture</h1>
-        <p className="opacity-60">We support only JPEGs or PNGs under 5MB</p>
-        <div className="my-3">
-          <div className="  ">
-            <input
-              title="image"
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleFileChange}
-              ref={fileInputRef}
-              style={{ display: "none" }}
-            />
-            <Image
-              width={54}
-              height={54}
-              ref={avatarImageRef}
-              className="w-16 h-16 object-cover rounded-full my-2 mx-4"
-              src={
-                currentImage && currentImage.trim() !== ""
-                  ? currentImage
-                  : "https://static-00.iconduck.com/assets.00/avatar-default-icon-2048x2048-h6w375ur.png"
-              }
-              alt="avatar"
-            />
-            <button
-              type="button"
-              onClick={handleButtonClick}
-              className="flex gap-1 border-2 border-solid font-semibold text-gray-700 rounded-xl px-2 py-1 hover:opacity-70"
-            >
-              <LuArrowUpFromLine className="text-xl" />
-              <span>Upload</span>
-            </button>
-          </div>
-        </div>
-      </div> */}
+
       <button
         type="button"
         onClick={handleButtonClick}
