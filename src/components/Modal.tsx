@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import Overlay from "@/components/Overlay";
-import { Button } from "./ui/button";
 
 type ModalProps = {
   onClose?: () => void;
@@ -23,18 +22,18 @@ function Modal({ onClose, children, className }: ModalProps) {
         style={{ backgroundColor: "#1A1A1A" }}
         className={`relative py-4 rounded shadow-lg z-50 ${className}`}
       >
-        <Button
+        <div
           onClick={onClose}
           className="absolute top-[-16px] right-[-16px] z-60 text-white text-3xl cursor-pointer"
         >
-          <IoMdClose className="text-5xl text-white rounded-full border-2 border-white " />
-        </Button>
+          <IoMdClose
+            size={32}
+            className="text-white rounded-full border-2 border-white"
+          />
+        </div>
         {children}
       </div>
-      <div
-        onClick={onClose}
-        className="fixed inset-0 bg-black bg-opacity-50 z-40"
-      >
+      <div className="fixed inset-0 bg-black bg-opacity-50 z-40">
         <Overlay />
       </div>
     </div>

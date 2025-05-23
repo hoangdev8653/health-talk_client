@@ -8,11 +8,13 @@ import Modal from "./Modal";
 type VideoThemnailProps = {
   className?: string;
   source_url?: string;
+  image?: string;
 };
 
 const VideoThemnail: React.FC<VideoThemnailProps> = ({
   className,
   source_url,
+  image,
 }) => {
   const [showVideo, setShowVideo] = useState(false);
 
@@ -27,25 +29,27 @@ const VideoThemnail: React.FC<VideoThemnailProps> = ({
   return (
     <div>
       <div
-        className={`${className} absolute text-white opacity-50 text-5xl  z-10 shadow-lg`}
+        className={`${className} absolute text-white opacity-90 text-5xl  z-10 shadow-lg`}
         onClick={handlePlayClick}
       >
         <BsPlayCircle />
       </div>
       {showVideo && (
-        <Modal onClose={handleClose} className="w-[70%] h-[70%]">
-          <div className="relative items-center mx-auto">
-            <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="w-[70%] h-[70%]">
-                <ReactPlayer
-                  playing={true}
-                  width="100%"
-                  height="100%"
-                  url={source_url}
-                  //   url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-                  controls
-                />
-              </div>
+        <Modal onClose={handleClose} className="w-[80%] h-[80%] py-0">
+          <div className="relative w-full h-full flex items-center justify-center ">
+            {image && (
+              <img
+                src={image}
+                alt="audio thumbnail"
+                className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
+              />
+            )}
+
+            <div className="absolute bottom-2 z-10  backdrop-blur-md p-4 rounded-lg ">
+              <audio controls autoPlay>
+                <source src={source_url} type="audio/mp3" />
+                Trình duyệt của bạn không hỗ trợ thẻ audio.
+              </audio>
             </div>
           </div>
         </Modal>

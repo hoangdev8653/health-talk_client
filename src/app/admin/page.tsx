@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import { FaRegUserCircle } from "react-icons/fa";
 import {
@@ -16,10 +16,26 @@ import Dashboard from "@/app/admin/Dashboard";
 import Help from "@/app/admin/Help";
 import Postcard from "@/app/admin/Postcard";
 import { getLocalStorage } from "@/lib/localStorage";
+import { useRouter } from "next/navigation";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Dashboard");
-  const user = getLocalStorage("user");
+  const router = useRouter();
+  const [isChecking, setIsChecking] = useState(true);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const userData = getLocalStorage("user");
+    setUser(userData);
+    if (!userData || userData.role !== "admin") {
+      router.replace("/home");
+    } else {
+      setIsChecking(false);
+    }
+  }, [router]);
+
+  if (isChecking) return null;
+
   const tabs = [
     { title: "Dashboard", icon: <RxDashboard /> },
     { title: "User", icon: <FaRegUserCircle /> },

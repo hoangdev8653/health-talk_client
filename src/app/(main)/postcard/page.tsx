@@ -14,6 +14,7 @@ function Postcard() {
   useEffect(() => {
     dispacth(getAllPostcardThunk());
   }, [dispacth]);
+
   return (
     <div className="w-full">
       <div className="w-4/5 mx-auto my-10">
