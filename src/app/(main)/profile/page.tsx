@@ -54,18 +54,19 @@ function Index() {
   };
 
   return (
-    <div className="w-full bg-white flex ">
-      <div className="w-1/5 bg-slate-50 tablet:hidden">
+    <div className="w-full  flex ">
+      <div className="w-1/5 bg-slate-50 dark:bg-[#181818] tablet:hidden">
         {tabs.map((tab, index) => (
           <div
             key={index}
-            className={`m-4 p-2 rounded cursor-pointer text-black ${
-              activeTab === tab.title ? "bg-slate-200" : ""
-            }`}
+            className={`m-4 p-2 rounded cursor-pointer 
+        text-black dark:text-gray-100 
+        ${activeTab === tab.title ? "bg-slate-200 dark:bg-[#232c3b]" : ""}
+      `}
             onClick={() => setActiveTab(tab.title)}
           >
             <div className="flex items-center">
-              <span className=" text-xl text-gray-400 font-bold">
+              <span className="text-xl text-gray-400 dark:text-gray-300 font-bold">
                 {tab.icon}
               </span>
               <span className="ml-1.5 capitalize">{tab.title}</span>

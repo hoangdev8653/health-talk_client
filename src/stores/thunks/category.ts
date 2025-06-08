@@ -17,8 +17,11 @@ export const createCategoryThunk = createAsyncThunk(
   "categories/create",
   async (data: any, thunkAPI) => {
     try {
-      const response = await createCategory(data);
-      return response;
+      console.log("Creating category with data:", data);
+     
+
+      // const response = await createCategory(data);
+      // return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

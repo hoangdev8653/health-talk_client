@@ -20,12 +20,14 @@ const mdParser = new MarkdownIt();
 
 const PostEditor: React.FC = () => {
   const [title, setTitle] = useState<string>("");
-  const [categoryId, setCategoryId] = useState<string>("Tập luyện và thể thao");
+  const category = useAppSelector((state) => state.category);
+  const article = useAppSelector((state) => state.article);
+  const [categoryId, setCategoryId] = useState<string>(
+    category?.data?.data?.content[0]?.id
+  );
   const [image, setImage] = useState<string | null>(null);
   const [markdown, setMarkdown] = useState<string>("");
   const dispatch = useAppDispatch();
-  const category = useAppSelector((state) => state.category);
-  const article = useAppSelector((state) => state.article);
 
   useEffect(() => {
     dispatch(getAllCategoryThunk());
@@ -34,7 +36,7 @@ const PostEditor: React.FC = () => {
   useEffect(() => {
     if (article.data || article.error) {
       setTitle("");
-      setCategoryId("Chăm sóc giấc ngủ");
+      setCategoryId(category?.data?.data?.content[0]?.id);
       setImage(null);
       setMarkdown("");
     }
@@ -47,7 +49,7 @@ const PostEditor: React.FC = () => {
     }
   };
 
-  const handleSubmit = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const fileInput = document.querySelector(
       'input[type="file"]'
@@ -61,9 +63,12 @@ const PostEditor: React.FC = () => {
     if (file) {
       formData.append("image", file);
     }
-    const result = dispatch(createArticleThunk(formData));
+    console.log("formData", formData);
+
+    const result = await dispatch(createArticleThunk(formData));
+
     if (result.type === "article/create/fulfilled") {
-      toast.success("Đăng nhập thành công");
+      toast.success("Tạo mới bài viết thành công");
     }
   };
 
@@ -96,8 +101,8 @@ const PostEditor: React.FC = () => {
               {category.data &&
                 category.data.data?.content?.map(
                   (item: categoryValue, index: number) => (
-                    <option key={index} value={item.id}>
-                      {item.name}
+                    <option key={index} value={item?.id}>
+                      {item?.name}
                     </option>
                   )
                 )}
@@ -136,7 +141,7 @@ const PostEditor: React.FC = () => {
 
             <button
               type="submit"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:opacity-80"
             >
               Đăng bài
             </button>

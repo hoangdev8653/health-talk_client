@@ -27,7 +27,7 @@ function Articles() {
         {data &&
           data?.data?.content?.map((item: category, index: number) => (
             <div key={index} className="relative overflow-hidden my-4">
-              <Link href={`http://localhost:3000/articles/${item?.slug}`}>
+              <Link href={`/articles/${item?.slug}`}>
                 <Image
                   className="cursor-pointer w-full h-[225px] object-cover transition-transform scale-10 duration-300 ease-in-out hover:scale-110"
                   width={360}

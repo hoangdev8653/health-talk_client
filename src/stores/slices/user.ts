@@ -3,6 +3,9 @@ import {
   loginThunk,
   registerThunk,
   updateAvatarThunk,
+  updatePasswordThunk,
+  updateRoleThunk,
+  deleteUserThunk,
 } from "@/stores/thunks/user";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -87,6 +90,42 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(updateAvatarThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updateRoleThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateRoleThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateRoleThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updatePasswordThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updatePasswordThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updatePasswordThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteUserThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteUserThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        // state.data = state.data.filter((user: any) => user.id !== action.payload.id);
+      })
+      .addCase(deleteUserThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

@@ -12,7 +12,7 @@ const SortValue: React.FC<SortValueProps> = ({ sortOrder, onChange }) => {
       <select
         title="sort by"
         value={sortOrder}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange?.(e.target.value)}
         className="border p-1 bg-white text-black"
       >
         <option value="newest">Newest</option>

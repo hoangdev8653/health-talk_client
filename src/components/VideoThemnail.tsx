@@ -35,7 +35,7 @@ const VideoThemnail: React.FC<VideoThemnailProps> = ({
         <BsPlayCircle />
       </div>
       {showVideo && (
-        <Modal onClose={handleClose} className="w-[80%] h-[80%] py-0">
+        <Modal onClose={handleClose} className="w-[80%] h-[80%] ">
           <div className="relative w-full h-full flex items-center justify-center ">
             {image && (
               <img

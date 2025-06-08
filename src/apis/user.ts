@@ -39,3 +39,18 @@ export const updatePassword = async (data: any) => {
     data,
   });
 };
+
+export const updateRole = async (data: string) => {
+  return await axiosConfig({
+    method: "post",
+    url: "/user/updateRole",
+    data,
+  });
+};
+
+export const deleteUser = async (id: string) => {
+  return await axiosConfig({
+    method: "delete",
+    url: `/user/delete?id=${id}`,
+  });
+};

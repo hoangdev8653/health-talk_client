@@ -44,8 +44,10 @@ function CommentArticles({ slug }: propsComment) {
   const user = getLocalStorage("user");
 
   useEffect(() => {
-    dispacth(getReviewBySlugArticleThunk(slug));
-    dispacth(getLikeBySlugArticleThunk(slug));
+    if (slug) {
+      dispacth(getReviewBySlugArticleThunk(slug));
+      dispacth(getLikeBySlugArticleThunk(slug));
+    }
   }, [slug, dispacth]);
 
   const sortReviews = [...data].sort((a: any, b: any) => {

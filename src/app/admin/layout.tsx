@@ -9,10 +9,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div>{children}</div>
-      </body>
-    </html>
+    <div className="light" style={{ colorScheme: "light" }}>
+      {children}
+    </div>
   );
 }

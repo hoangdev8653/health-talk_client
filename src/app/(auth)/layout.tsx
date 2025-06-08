@@ -1,6 +1,5 @@
 export const metadata = {
   title: "H7-Authentication",
-  // description: "Quản trị hệ thống",
 };
 
 export default function AuthLayout({
@@ -8,11 +7,5 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html className="light" lang="en">
-      <body>
-        <div>{children}</div>
-      </body>
-    </html>
-  );
+  return <div className="auth-layout">{children}</div>;
 }

@@ -12,13 +12,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className="light" lang="en">
-      <body className="antialiased">
-        <Header />
-        <div>{children}</div>
-        <BackToTop />
-        <Footer />
-      </body>
-    </html>
+    <div className="main-layout">
+      <Header />
+      <div>{children}</div>
+      <BackToTop />
+      <Footer />
+    </div>
   );
 }

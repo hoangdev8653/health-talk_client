@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import formatDate from "@/utils/formatDate";
 import SortValue from "@/components/SortValue";
+import Link from "next/link";
 
 function Notification() {
   const [activeTab, setActiveTab] = useState("all");
@@ -49,27 +50,29 @@ function Notification() {
   }, [filteredNotifications]);
 
   return (
-    <div className="text-black">
+    <div className="text-black dark:text-gray-100 bg-white dark:bg-[#181818] min-h-screen transition-colors">
       <div className="my-3">
         <h1
           style={{ textShadow: "0em 0.1em 0.1em rgba(0,0,0,0.4)" }}
-          className=" font-medium text-3xl my-3 "
+          className=" font-medium text-3xl my-3 dark:text-white"
         >
           Notification
         </h1>
       </div>
-      <div className="w-full h-full bg-gray-50">
+      <div className="w-full h-full bg-gray-50 dark:bg-[#232c3b] transition-colors">
         <div className="flex justify-between p-4 ">
           <div>{NotificationByUser?.length} Notification</div>
           <div>
             <SortValue sortOrder={sortOrder} onChange={setSortOrder} />
           </div>
         </div>
-        <div className="w-full h-full bg-gray-50">
+        <div className="w-full h-full bg-gray-50 dark:bg-[#232c3b] transition-colors">
           <div className="flex">
             <div
               className={`w-1/3 border-b-2 border-solid  ${
-                activeTab === "all" ? "border-black" : "border-gray-100"
+                activeTab === "all"
+                  ? "border-black dark:border-gray-100"
+                  : "border-gray-100 dark:border-gray-700"
               }`}
             >
               <p
@@ -78,7 +81,9 @@ function Notification() {
               >
                 <span
                   className={`rounded-full p-1.5 py-1 ${
-                    activeTab === "all" ? "bg-red-500" : "bg-gray-200"
+                    activeTab === "all"
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-200 dark:bg-gray-700"
                   } `}
                 >
                   {NotificationByUser?.length}
@@ -88,7 +93,9 @@ function Notification() {
             </div>
             <div
               className={`w-1/3 border-b-2 border-solid  ${
-                activeTab === "archive" ? "border-black" : "border-gray-100"
+                activeTab === "archive"
+                  ? "border-black dark:border-gray-100"
+                  : "border-gray-100 dark:border-gray-700"
               }`}
             >
               <p
@@ -97,7 +104,9 @@ function Notification() {
               >
                 <span
                   className={`rounded-full p-1.5 py-1 ${
-                    activeTab === "archive" ? "bg-red-500" : "bg-gray-200"
+                    activeTab === "archive"
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-200 dark:bg-gray-700"
                   } `}
                 >
                   {totalNotificationUnRead}
@@ -105,9 +114,11 @@ function Notification() {
                 <span className="p-1">Archive</span>
               </p>
             </div>
-            <div className="w-1/3  border-b-2 border-solid border-gray-100">
+            <div className="w-1/3  border-b-2 border-solid border-gray-100 dark:border-gray-700">
               <p className="m-2 flex cursor-pointer">
-                <span className="rounded-full p-1.5 py-1 bg-gray-200">17</span>
+                <span className="rounded-full p-1.5 py-1 bg-gray-200 dark:bg-gray-700">
+                  17
+                </span>
                 <span className="p-1">Favorite</span>
               </p>
             </div>
@@ -120,7 +131,9 @@ function Notification() {
                     <div
                       key={index}
                       className={`w-full flex items-center gap-2 p-3 shadow-sm rounded-md ${
-                        item?.is_read === true ? "bg-white" : "bg-gray-100"
+                        item?.is_read === true
+                          ? "bg-white dark:bg-[#232c3b]"
+                          : "bg-gray-100 dark:bg-[#181818]"
                       }`}
                     >
                       <div
@@ -131,18 +144,18 @@ function Notification() {
                       <div className="cursor-pointer">
                         <CiStar className="text-2xl" />
                       </div>
-                      <a
-                        onClick={() => handleReadNotification(item.id)}
-                        href={`http://localhost:3000/home/${item.post.slug}`}
+                      <Link
+                        onClick={() => handleReadNotification(item?.id)}
+                        href={`/home/${item?.post?.slug}`}
                         className="flex-1 hover:opacity-60"
                       >
                         {item?.message}. Hãy click vào để xem chi tiết hơn!
-                      </a>
-                      <div className="text-gray-500 flex items-center gap-2 mr-64">
-                        {formatDate(item.createdAt)}
+                      </Link>
+                      <div className="text-gray-500 dark:text-gray-400 flex items-center gap-2 mr-64">
+                        {formatDate(item?.createdAt)}
                       </div>
                       <div
-                        onClick={() => handleDeleteNotification(item.id)}
+                        onClick={() => handleDeleteNotification(item?.id)}
                         className="flex items-center gap-2 mr-2"
                       >
                         <RiDeleteBinLine className="text-2xl cursor-pointer p-1 rounded-full bg-orange-600 text-white" />
@@ -152,7 +165,7 @@ function Notification() {
               </>
             ) : (
               <>
-                <div className="mx-auto py-4 text-center">
+                <div className="mx-auto py-4 text-center dark:text-gray-300">
                   Không có thông báo nào!
                 </div>
               </>

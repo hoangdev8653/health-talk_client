@@ -20,6 +20,30 @@ export default function SimpleSlider({
   beakpointTablet,
   beakpointMobile,
 }: Props) {
+  const responsive = [];
+  if (typeof beakpointTablet === "number") {
+    responsive.push({
+      breakpoint: beakpointTablet,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: dots,
+        speed: 500,
+      },
+    });
+  }
+  if (typeof beakpointMobile === "number") {
+    responsive.push({
+      breakpoint: beakpointMobile,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    });
+  }
+
   var settings = {
     dots: dots,
     infinite: true,
@@ -28,26 +52,7 @@ export default function SimpleSlider({
     slidesToScroll: slidesToScroll,
     autoplay: autoPlay,
     autoplaySpeed: 5000,
-    responsive: [
-      {
-        breakpoint: beakpointTablet,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: dots,
-          speed: 500,
-        },
-      },
-      {
-        breakpoint: beakpointMobile,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-    ],
+    responsive,
   };
   return <Slider {...settings}>{children}</Slider>;
 }

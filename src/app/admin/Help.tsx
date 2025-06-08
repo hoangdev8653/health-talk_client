@@ -9,7 +9,7 @@ function Help() {
         <input
           type="text"
           placeholder="Bạn cần hỗ trợ gì?"
-          className="w-full p-3 border rounded-lg shadow-sm"
+          className="w-full p-3 border rounded-lg shadow-sm dark:text-black"
         />
       </div>
 
@@ -20,7 +20,7 @@ function Help() {
             className="p-4 border rounded-xl shadow hover:shadow-md transition"
           >
             <h2 className="font-semibold text-lg mb-2">{title}</h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm dark:text-gray-400">
               Tìm hiểu cách {title.toLowerCase()} và xử lý sự cố.
             </p>
           </div>
@@ -34,7 +34,7 @@ function Help() {
             <summary className="font-medium cursor-pointer">
               Làm sao để viết bài mới?
             </summary>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm dark:text-gray-400">
               Vào mục "Bài viết" → "Tạo mới".
             </p>
           </details>
@@ -42,7 +42,7 @@ function Help() {
             <summary className="font-medium cursor-pointer">
               Cách chỉnh sửa bài viết đã đăng?
             </summary>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm dark:text-gray-400">
               Chọn bài viết → Nhấn "Chỉnh sửa".
             </p>
           </details>
@@ -50,7 +50,7 @@ function Help() {
       </div>
 
       <div className="mt-10 text-center">
-        <p className="text-sm text-gray-600 mb-2">Vẫn cần hỗ trợ thêm?</p>
+        <p className="text-sm dark:text-gray-400 mb-2">Vẫn cần hỗ trợ thêm?</p>
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
           Liên hệ hỗ trợ
         </button>

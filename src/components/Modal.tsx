@@ -17,7 +17,7 @@ function Modal({ onClose, children, className }: ModalProps) {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto ">
       <div
         style={{ backgroundColor: "#1A1A1A" }}
         className={`relative py-4 rounded shadow-lg z-50 ${className}`}

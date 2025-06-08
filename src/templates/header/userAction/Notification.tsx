@@ -10,6 +10,7 @@ import {
 import formatDate from "@/utils/formatDate";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 function Notification() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,9 +45,8 @@ function Notification() {
     };
   }, [isOpen]);
 
-  const handleReadNotification = (id: any) => {
-    const result = dispatch(updateStatusNotificationThunk(id));
-    console.log(result);
+  const handleReadNotification = async (id: any) => {
+    const result = await dispatch(updateStatusNotificationThunk(id));
   };
 
   return (
@@ -87,11 +87,11 @@ function Notification() {
                 <CardContent className="border-none p-0 m-0 ">
                   {NotificationByUser?.length > 0 ? (
                     NotificationByUser?.map((item: any, index: number) => (
-                      <a
+                      <Link
                         onClick={() => handleReadNotification(item.id)}
                         className="relative"
                         key={index}
-                        href={`http://localhost:3000/home/${item.post.slug}`}
+                        href={`/home/${item?.post?.slug}`}
                       >
                         <div className="flex gap-2 my-4 cursor-pointer">
                           <div className="w-1/6">
@@ -99,25 +99,27 @@ function Notification() {
                               width={48}
                               height={48}
                               className="rounded-full w-12 h-12 object-cover"
-                              src={item.post.image}
-                              alt={item.post.id}
+                              src={item?.post?.image}
+                              alt={item?.post?.id}
                             />
                           </div>
                           <div className="flex-1 mr-2 flex items-center gap-2">
                             <div>
-                              <p>{item.message}</p>
+                              <p className="hover:opacity-80">
+                                {item?.message}
+                              </p>
                               <p className="text-sm text-gray-300 opacity-80">
-                                {formatDate(item.createdAt)}
+                                {formatDate(item?.createdAt)}
                               </p>
                             </div>
-                            {item.is_read === false ? (
+                            {item?.is_read === false ? (
                               <div className="w-2 h-2 bg-blue-700 rounded"></div>
                             ) : (
                               <></>
                             )}
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     ))
                   ) : (
                     <p className="text-gray-400 mx-2">
@@ -132,9 +134,10 @@ function Notification() {
                 <CardContent className="border-none p-0 m-0">
                   {NotificationIsUnRead?.length > 0 ? (
                     NotificationIsUnRead?.map((item: any, index: number) => (
-                      <a
+                      <Link
+                        onClick={() => handleReadNotification(item.id)}
                         key={index}
-                        href={`http://localhost:3000/home/${item.post.id}`}
+                        href={`/home/${item?.post?.slug}`}
                       >
                         <div className="flex gap-2 my-4">
                           <div className="w-1/6">
@@ -142,21 +145,21 @@ function Notification() {
                               width={48}
                               height={48}
                               className="rounded-full w-12 h-12 object-cover"
-                              src={item.post.image}
-                              alt={item.post.id}
+                              src={item?.post.image}
+                              alt={item?.post.id}
                             />
                           </div>
                           <div className="flex-1 mr-2 flex items-center gap-2">
                             <div>
-                              <p>{item.message}</p>
+                              <p>{item?.message}</p>
                               <p className="text-sm text-gray-300 opacity-80">
-                                {formatDate(item.createdAt)}
+                                {formatDate(item?.createdAt)}
                               </p>
                             </div>
                             <div className="w-2 h-2 bg-blue-700 rounded"></div>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     ))
                   ) : (
                     <p className="text-gray-400 mx-4">

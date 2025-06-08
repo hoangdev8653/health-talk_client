@@ -19,12 +19,11 @@ function Avatar() {
     setUser(storedUser);
   }, []);
 
-  const handleLogout = async () => {
-    const result = dispatch(logout());
-
-    if (result.type === "user/logout") {
-      router.push("/");
-    }
+  const handleLogout = () => {
+    dispatch(logout());
+    setTimeout(() => {
+      router.push("/login");
+    }, 1000);
   };
 
   const handleAvatarHover = () => {
@@ -34,7 +33,6 @@ function Avatar() {
   const handleAvatarLeave = () => {
     if (isOpen) setIsOpen(false);
   };
-  const defaultAvatar = "/images/avatar_default.jpg";
 
   return (
     <div className="block text-white">
@@ -51,7 +49,7 @@ function Avatar() {
             src={
               user?.image && user.image.trim() !== ""
                 ? user.image
-                : defaultAvatar
+                : "/images/avatar_default.jpg"
             }
             alt={user ? "User avatar" : "Default avatar"}
           />

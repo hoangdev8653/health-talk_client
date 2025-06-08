@@ -18,26 +18,24 @@ import Postcard from "@/app/admin/Postcard";
 import { getLocalStorage } from "@/lib/localStorage";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import UseLocalStorageUser from "@/components/UseLocalStorageUser";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
-  // const [user, setUser] = useState<any>(null);
-  const user = UseLocalStorageUser();
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // const userData = getLocalStorage("user");
-    // setUser(userData);
-    // if (!userData || userData.role !== "admin") {
-    //   router.replace("/home");
-    // } else {
-    //   setIsChecking(false);
-    // }
+    const userData = getLocalStorage("user");
+    setUser(userData);
+    if (!userData || userData.role !== "admin") {
+      router.replace("/home");
+    } else {
+      setIsChecking(false);
+    }
   }, [router]);
 
-  // if (isChecking) return null;
+  if (isChecking) return null;
 
   const tabs = [
     { title: "Dashboard", icon: <RxDashboard /> },
@@ -60,7 +58,6 @@ function Index() {
         return <Postcard />;
       case "Help":
         return <Help />;
-
       default:
         return <Dashboard />;
     }
@@ -68,8 +65,8 @@ function Index() {
 
   return (
     <div className="w-full flex h-screen">
-      <div className="relative w-2/12 bg-white h-screen  ">
-        <div className=" cursor-pointer p-4 m-2 ">
+      <div className="relative w-2/12 h-screen border-r-2 border-gray-200 dark:border-gray-700">
+        <div className="cursor-pointer p-4 m-2">
           <a title="H7" href="/admin">
             <Image
               src="/images/logo_h7.png"
@@ -84,7 +81,7 @@ function Index() {
           <div
             onClick={() => setActiveTab(tab.title)}
             key={index}
-            className={`flex gap-3 p-2  cursor-pointer  w-4/5 mx-4 mt-2 hover:opacity-70 rounded-xl ${
+            className={`flex gap-3 p-2 cursor-pointer w-4/5 mx-4 mt-2 hover:opacity-70 rounded-xl ${
               activeTab == tab.title
                 ? "bg-blue-700 text-white"
                 : "text-gray-400 bg-white"
@@ -113,11 +110,13 @@ function Index() {
           </div>
         </div>
       </div>
-      <div className="flex-1 bg-slate-100 overflow-y-auto">
+      <div className="flex-1  overflow-y-auto">
         <div className="mx-16">
           <div className="flex justify-between my-6">
             <div className="text-xl font-semibold flex gap-1">
-              <p>Hello {user?.username}</p>
+              <p className="dark:text-blue-400 text-gray-900">
+                Hello {user?.username}
+              </p>
               <img className="size-7" src="/hello.svg" alt="start Icon" />
             </div>
           </div>

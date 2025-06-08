@@ -18,6 +18,8 @@ function UploadAvatar({ user }: { user: any }) {
     }
     const file = e.target.files[0];
     const fileUrl = URL.createObjectURL(file);
+    console.log("Selected file:", file);
+    console.log("Selected file:", fileUrl);
 
     if (avatarImageRef.current) {
       avatarImageRef.current.src = fileUrl;
@@ -79,7 +81,7 @@ function UploadAvatar({ user }: { user: any }) {
           <button
             type="button"
             onClick={handleButtonClick}
-            className="flex gap-1 border-2 border-solid font-semibold text-gray-700 rounded-xl px-2 py-1 hover:opacity-70"
+            className="flex gap-1 border-2 border-solid font-semibold text-gray-700 dark:text-gray-100 border-gray-400 dark:border-gray-600 bg-white dark:bg-[#232c3b] rounded-xl px-2 py-1 hover:opacity-70"
           >
             <LuArrowUpFromLine className="text-xl" />
             <span>Upload</span>
@@ -88,7 +90,7 @@ function UploadAvatar({ user }: { user: any }) {
             onClick={handleUpload}
             id="saveBtn"
             disabled={!selectedFile}
-            className={`flex gap-1 border-2 border-solid font-semibold text-gray-700 rounded-xl px-2 py-1 hover:opacity-70 ${
+            className={`flex gap-1 border-2 border-solid font-semibold text-gray-700 dark:text-gray-100 border-gray-400 dark:border-gray-600 bg-white dark:bg-[#232c3b] rounded-xl px-2 py-1 hover:opacity-70 ${
               !selectedFile ? "cursor-not-allowed opacity-50" : "cursor-pointer"
             }`}
           >

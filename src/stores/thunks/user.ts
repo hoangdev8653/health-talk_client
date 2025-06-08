@@ -4,6 +4,8 @@ import {
   updateAvarta,
   getAllUser,
   updatePassword,
+  updateRole,
+  deleteUser,
 } from "@/apis/user";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginType, registerType } from "@/types/user";
@@ -69,6 +71,30 @@ export const updatePasswordThunk = createAsyncThunk(
   async (data: any, thunkAPI) => {
     try {
       const response = await updatePassword(data);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const updateRoleThunk = createAsyncThunk(
+  "user/updateRole",
+  async (data: any, thunkAPI) => {
+    try {
+      const response = await updateRole(data);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const deleteUserThunk = createAsyncThunk(
+  "user/delete",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await deleteUser(id);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response?.data);

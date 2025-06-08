@@ -6,6 +6,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogTrigger,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import React, { useEffect } from "react";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
@@ -34,9 +35,9 @@ function Postcard() {
 
   return (
     <div className="w-full">
-      <div className="bg-white rounded-2xl p-6 my-8 w-full">
+      <div className="bg-white dark:bg-[#181818] rounded-2xl p-6 my-8 w-full">
         <div className="flex justify-between">
-          <p className="font-bold text-xl mx-4">All Postcards</p>
+          <p className="font-bold text-xl mx-4">Danh sách Poscard</p>
           <div className="flex gap-2 items-center">
             <div className="flex items-center border border-gray-400 rounded-full px-2 py-1 w-72 bg-gray-200">
               <CiSearch className="text-2xl text-black font-bold cursor-pointer hover:opacity-60" />
@@ -45,7 +46,7 @@ function Postcard() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search By Name Postcard"
-                className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none w-full"
+                className="bg-gray-200 rounded-full px-1.5 py-1 focus:outline-none w-full dark:text-black"
               />
             </div>
 
@@ -72,7 +73,7 @@ function Postcard() {
               {filteredPostcards?.map((item: any, index: number) => (
                 <tr
                   key={index}
-                  className="odd:bg-white even:bg-gray-100 border-b border-gray-200 dark:border-gray-700"
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-100 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
                 >
                   <td className="px-6 py-4 text-center">{item?.title}</td>
                   <td className="text-center px-6 py-4">
@@ -97,48 +98,49 @@ function Postcard() {
                           <MdEdit className="text-2xl text-green-600 hover:opacity-65 cursor-pointer" />
                         </AlertDialogTrigger>
                         <AlertDialogContent className="bg-gray-100">
-                          <AlertDialogDescription>
-                            <div className="bg-gray-100 w-full">
-                              <div className="my-4 flex gap-2">
-                                <div className="w-1/2">
-                                  <label>Title</label>
-                                  <input
-                                    title="title"
-                                    type="text"
-                                    className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
-                                  />
-                                </div>
-                                <div className="w-1/2">
-                                  <label>User</label>
-                                  <input
-                                    title="user"
-                                    type="text"
-                                    className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
-                                  />
-                                </div>
+                          <AlertDialogTitle className="text-xl font-bold mb-4 text-center text-gray-800">
+                            Chỉnh sửa Postcard
+                          </AlertDialogTitle>
+                          <div className="bg-gray-100 w-full">
+                            <div className="my-4 flex gap-2">
+                              <div className="w-1/2">
+                                <label>Title</label>
+                                <input
+                                  title="title"
+                                  type="text"
+                                  className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
+                                />
                               </div>
-                              <div className="my-4 flex gap-2">
-                                <div className="w-1/2">
-                                  <label>Category</label>
-                                  <select
-                                    title="role"
-                                    className="w-full border-gray-200 border bg-white text-black p-2"
-                                  >
-                                    <option value="user">user</option>
-                                    <option value="admin">admin</option>
-                                  </select>
-                                </div>
-                                <div className="w-1/2">
-                                  <label>Status</label>
-                                  <input
-                                    title="status"
-                                    type="text"
-                                    className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
-                                  />
-                                </div>
+                              <div className="w-1/2">
+                                <label>User</label>
+                                <input
+                                  title="user"
+                                  type="text"
+                                  className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
+                                />
                               </div>
                             </div>
-                          </AlertDialogDescription>
+                            <div className="my-4 flex gap-2">
+                              <div className="w-1/2">
+                                <label>Category</label>
+                                <select
+                                  title="role"
+                                  className="w-full border-gray-200 border bg-white text-black p-2"
+                                >
+                                  <option value="user">user</option>
+                                  <option value="admin">admin</option>
+                                </select>
+                              </div>
+                              <div className="w-1/2">
+                                <label>Status</label>
+                                <input
+                                  title="status"
+                                  type="text"
+                                  className="px-3 py-2 w-full border-gray-200 border bg-white text-black"
+                                />
+                              </div>
+                            </div>
+                          </div>
                           <AlertDialogFooter>
                             <AlertDialogCancel className="bg-red-500 text-white rounded font-semibold">
                               Cancel
@@ -149,7 +151,35 @@ function Postcard() {
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
-                      <MdDeleteForever className="text-2xl text-red-600 hover:opacity-65 cursor-pointer" />
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <MdDeleteForever
+                            className=" text-2xl text-red-600 opacity-100 hover:opacity-65 cursor-pointer"
+                            // onClick={() => setSelectedUser(item)}
+                          />
+                        </AlertDialogTrigger>{" "}
+                        <AlertDialogContent className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+                          <AlertDialogTitle className="text-xl font-bold mb-6 text-center text-gray-800">
+                            Xác nhận xóa Postcard
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Bạn có chắc chắn muốn xóa Postcard{" "}
+                            <span className="font-semibold">{item?.title}</span>{" "}
+                            không?
+                          </AlertDialogDescription>
+                          <AlertDialogFooter className="flex justify-end gap-4">
+                            <AlertDialogCancel className="bg-gray-300 text-black font-semibold rounded-lg px-6 py-2 hover:bg-gray-400 transition">
+                              Hủy
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              // onClick={() => handleDeleteUser(item?.id)}
+                              className="bg-red-500 text-white font-semibold rounded-lg px-6 py-2 hover:bg-red-600 transition"
+                            >
+                              Xóa
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </td>
                 </tr>

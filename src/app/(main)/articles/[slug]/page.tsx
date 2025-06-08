@@ -64,7 +64,7 @@ const Category: React.FC = () => {
           alt={categoryName}
           width={800}
           height={400}
-          className="w-full h-[700px] object-cover "
+          className="w-full h-[600px] object-cover "
         />
       </div>
 

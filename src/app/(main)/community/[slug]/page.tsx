@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { getQuestionBySlugThunk } from "@/stores/thunks/question";
 import {
@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { articleValidate } from "@/validations/article";
 import useLocalStorageUser from "@/components/UseLocalStorageUser";
+import Link from "next/link";
 
 function QuestionDetail() {
   const dispatch = useAppDispatch();
@@ -56,54 +57,62 @@ function QuestionDetail() {
 
   return (
     <div className="w-full">
-      <div className=" max-w-5xl mx-auto border-l-[1px] border-solid border-gray-300">
+      <div className="max-w-5xl mx-auto border-l-[1px] border-solid border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-lg">
         <div className="mx-4">
-          <div className="flex justify-between">
-            <p className="font-medium text-2xl my-4 text-shadow-md">
+          <div className="flex justify-between gap-2 items-start">
+            <p className="font-medium text-2xl my-4 text-shadow-md dark:text-white">
               {question?.data?.data?.content?.title}
             </p>
-            <Button className="rounded-xl font-medium justify-center my-4 bg-blue-700  text-white px-3 py-2 text-sm leading-none">
-              Ask Question
-            </Button>
+            <Link
+              href={user ? "/community/ask" : "/login"}
+              className="rounded-xl font-medium justify-center my-4 bg-blue-700 text-white px-3 py-4 text-sm leading-none"
+              style={{ minWidth: 120, textAlign: "center" }}
+            >
+              Đặt câu hỏi
+            </Link>
           </div>
-          <div className="flex gap-4 text-sm border-b-[1px] border-solid border-gray-200  py-4">
+          <div className="flex gap-4 text-sm border-b-[1px] border-solid border-gray-200 dark:border-gray-700 py-4">
             <div className="flex gap-1">
-              <span className="opacity-70">Asked</span>
-              <span>
+              <span className="opacity-70 dark:text-gray-300">Asked</span>
+              <span className="dark:text-gray-100">
                 {formatDate(question?.data?.data?.content?.createdAt)}
               </span>
             </div>
             <div className="flex gap-1">
-              <span className="opacity-70">Modified</span>
-              <span>today</span>
+              <span className="opacity-70 dark:text-gray-300">Modified</span>
+              <span className="dark:text-gray-100">today</span>
             </div>
             <div className="flex gap-1">
-              <span className="opacity-70">Viewed</span>
-              <span>{question?.data?.data?.content?.views} times</span>
+              <span className="opacity-70 dark:text-gray-300">Viewed</span>
+              <span className="dark:text-gray-100">
+                {question?.data?.data?.content?.views} times
+              </span>
             </div>
           </div>
           <div className="my-2 flex gap-4">
             <div className="max-w-[70%] ">
-              <p className="my-2">{question?.data?.data?.content?.content}</p>
+              <p className="my-2 dark:text-gray-100">
+                {question?.data?.data?.content?.content}
+              </p>
               <div className="text-sm flex justify-between my-4">
-                <div className="flex gap-2 font-semibold">
+                <div className="flex gap-2 font-semibold flex-wrap">
                   {question?.data?.data?.content?.tags?.map(
-                    (item: any, index: number) => {
+                    (item: any, index: number) => (
                       <a
                         key={index}
                         href="/"
-                        className="px-1 py-0.5 bg-gray-200 cursor-pointer rounded text-xs"
+                        className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 dark:text-gray-100 cursor-pointer rounded text-xs"
                       >
                         {item?.title}
-                      </a>;
-                    }
+                      </a>
+                    )
                   )}
                 </div>
               </div>
               <div className="my-4">
                 <div className="flex justify-end">
-                  <div className="px-2 py-2 bg-blue-50 rounded text-xs w-52 inline-block">
-                    <p className="text-gray-500 mb-1 mx-auto text-center">
+                  <div className="px-2 py-2 bg-blue-50 dark:bg-gray-800 rounded text-xs w-52 inline-block">
+                    <p className="text-gray-500 dark:text-gray-300 mb-1 mx-auto text-center">
                       asked{" "}
                       {formatDate(question?.data?.data?.content?.createdAt)}{" "}
                     </p>
@@ -112,7 +121,10 @@ function QuestionDetail() {
                         className="w-7 h-7 rounded object-cover"
                         width={28}
                         height={28}
-                        src={user?.image}
+                        src={
+                          question?.data?.data?.content?.User?.image ||
+                          "/images/avatar_default.jpg"
+                        }
                         alt="avatar user"
                       />
                       <div className="text-sm">
@@ -120,7 +132,9 @@ function QuestionDetail() {
                           {question?.data?.data?.content?.User?.username}
                         </p>
                         <div className="flex gap-1 text-[11px] items-center">
-                          <span className="font-bold text-black">1,007</span>
+                          <span className="font-bold text-black dark:text-gray-100">
+                            1,007
+                          </span>
                           <span className="text-yellow-500">● 5</span>
                           <span className="text-gray-400">● 32</span>
                           <span className="text-orange-300">● 60</span>
@@ -136,18 +150,18 @@ function QuestionDetail() {
                         className="object-cover"
                         width={48}
                         height={48}
-                        src={user?.image}
+                        src={user?.image || "/images/avatar_default.jpg"}
                         alt="avatar user"
                       />
                     </div>
                     <form
                       onSubmit={handleSubmit(onSubmit)}
                       style={{ background: "#f5f6f7" }}
-                      className="flex-1 relative h-24 border-[1px]"
+                      className="flex-1 relative h-24 border-[1px] dark:bg-gray-800 dark:border-gray-700"
                     >
                       <input
                         {...register("content")}
-                        className="w-full border-[1px] border-gray-300 min-h-10 text-base px-2 py-3 focus:outline-none "
+                        className="w-full border-[1px] border-gray-300 dark:border-gray-700 min-h-10 text-base px-2 py-3 focus:outline-none dark:bg-gray-900 dark:text-white"
                         type="text"
                         placeholder="Add a comment..."
                       />
@@ -173,7 +187,7 @@ function QuestionDetail() {
                     {answer?.data &&
                       answer?.data.map((item: any, index: number) => (
                         <div key={index}>
-                          <div className="border-b-2 border-gray-300 opacity-70"></div>
+                          <div className="border-b-2 border-gray-300 dark:border-gray-700 opacity-70"></div>
                           <div className="flex gap-2 my-4">
                             <div className="avatar cursor-pointer">
                               <Image
@@ -181,18 +195,18 @@ function QuestionDetail() {
                                 height={48}
                                 src={
                                   item.User?.image ||
-                                  "https://scontent.fdad3-6.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s48x48&_nc_cat=1&ccb=1-7&_nc_sid=22ec41&_nc_ohc=zZKR384LhekQ7kNvgFEZ1HE&_nc_zt=24&_nc_ht=scontent.fdad3-6.fna&edm=AJqh0Q8EAAAA&_nc_gid=A5RU23Zff_zA6eAYjgFGt3M&oh=00_AYCf1KUwEx-mG0ahUNMriw4SEW_AwzarvJEYWAjjLS3M-Q&oe=67C7D8FA"
+                                  "/images/avatar_default.jpg"
                                 }
                                 alt={item?.User?.id}
                               />
                             </div>
                             <div className="flex-1 block relative ">
-                              <p className="font-semibold text-blue-800 ">
+                              <p className="font-semibold text-blue-800 dark:text-blue-300">
                                 {item?.User?.username
                                   ? item?.User?.username
                                   : user.username}
                               </p>
-                              <p className="text-sm my-1 text-gray-500">
+                              <p className="text-sm my-1 text-gray-500 dark:text-gray-200">
                                 {item?.content}
                               </p>
                               <div className="flex gap-2 text-xs ">
@@ -214,14 +228,40 @@ function QuestionDetail() {
                 ) : (
                   <>
                     <div>
-                      <p>Bạn hãy là người đầu tiên bình luận về bài viết</p>
+                      <p className="dark:text-gray-200">
+                        Bạn hãy là người đầu tiên bình luận về bài viết
+                      </p>
                     </div>
                   </>
                 )}
               </div>
             </div>
 
-            <div className="flex-1"></div>
+            <div className="flex-1">
+              <div className="">
+                <h2 className="text-xl font-semibold mb-3 dark:text-white">
+                  Câu hỏi thường gặp
+                </h2>
+                <div className="space-y-2">
+                  <details className="border p-3 rounded-md dark:bg-gray-800 dark:border-gray-700">
+                    <summary className="font-medium cursor-pointer dark:text-gray-100">
+                      Làm sao để viết bài mới?
+                    </summary>
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                      Vào mục "Bài viết" → "Tạo mới".
+                    </p>
+                  </details>
+                  <details className="border p-3 rounded-md dark:bg-gray-800 dark:border-gray-700">
+                    <summary className="font-medium cursor-pointer dark:text-gray-100">
+                      Cách chỉnh sửa bài viết đã đăng?
+                    </summary>
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                      Chọn bài viết → Nhấn "Chỉnh sửa".
+                    </p>
+                  </details>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ const managerUserSlice = createSlice({
       })
       .addCase(blockUserThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload.data.content;
+        state.data = [...state.data];
       })
       .addCase(blockUserThunk.rejected, (state, action) => {
         state.loading = false;
@@ -56,7 +56,7 @@ const managerUserSlice = createSlice({
       })
       .addCase(unblockUserThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload.data.content;
+        state.data = [...state.data];
       })
       .addCase(unblockUserThunk.rejected, (state, action) => {
         state.loading = false;

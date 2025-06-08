@@ -24,11 +24,9 @@ export const getAllArticleThunk = createAsyncThunk(
 
 export const createArticleThunk = createAsyncThunk(
   "article/create",
-  async (data: createArticleType, thunkAPI) => {
+  async (data: any, thunkAPI) => {
     try {
       const response = await createArticle(data);
-      console.log(response);
-
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);

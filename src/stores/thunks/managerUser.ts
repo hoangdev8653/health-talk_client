@@ -34,6 +34,8 @@ export const unblockUserThunk = createAsyncThunk(
   "managerUser/unblockUserThunk",
   async (id: string, { rejectWithValue }) => {
     try {
+      console.log("Unblocking user with ID:", id);
+
       const response = await unblockUser(id);
       return response;
     } catch (error: any) {
