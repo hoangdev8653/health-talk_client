@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🩺 Health Talk
 
-## Getting Started
+**Health Talk** là một nền tảng web chia sẻ kiến thức và thông tin liên quan đến **sức khỏe hằng ngày**, bao gồm các chủ đề như **dinh dưỡng, tập thể dục, giấc ngủ**, và **các bệnh lý phổ biến** do thói quen sinh hoạt hoặc ăn uống không hợp lý gây ra.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
+Truy cập website: [https://healthtalk.vercel.app](https://healthtalk.vercel.app)
+
+---
+
+## 📌 Tính năng chính
+
+- 📰 Xem các bài viết chia sẻ về:
+  - Dinh dưỡng và thói quen ăn uống
+  - Các bệnh thường gặp (đau dạ dày, tiểu đường, béo phì, v.v.)
+  - Cách tập thể dục đúng cách
+  - Giấc ngủ và sức khỏe tinh thần
+- 🔍 Tìm kiếm nhanh bài viết theo từ khóa
+- 📱 Giao diện responsive thân thiện với thiết bị di động
+- 🌙 Chế độ sáng/tối (Dark mode)
+- ⚡ Hiệu năng cao nhờ sử dụng Next.js và Vercel
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+| Công nghệ     | Mô tả                            |
+|---------------|-----------------------------------|
+| **Next.js**   | Framework React hỗ trợ SSR/SSG   |
+| **React.js**  | Thư viện xây dựng giao diện      |
+| **TailwindCSS** | CSS utility-first cho styling   |
+| **TypeScript**| Ngôn ngữ lập trình mạnh mẽ hơn JS |
+| **Vercel**    | Nền tảng deploy frontend nhanh    |
+
+---
+
+# Cài đặt dependencies
+npm install
+
+# Chạy dự án local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Truy cập: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📚 Định hướng phát triển
+Tích hợp hệ thống bình luận
+Xây dựng phiên bản mobile app (React Native)
+Tích hợp hệ thống đánh giá độ tin cậy của bài viết
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📧 Liên hệ
+Nếu bạn có câu hỏi, phản hồi hoặc đề xuất, hãy liên hệ qua:
+Email: hhoang1072003@gmail.com
+GitHub: @hoangdev8653
