@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.slick-track {
+  width: 100%;
+}
+
+.slick-dots {
+  bottom: 32px !important;
+}
+.slick-dots li button:before {
+  font-size: 8px !important;
+  color: white !important;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+  }
+}
+
+@layer components {
+  .border-border {
+    border: 1px solid var(--foreground);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 3s ease-in-out;
+  }
+}
