@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import React, { useEffect } from "react";
 import Article from "@/components/Article";

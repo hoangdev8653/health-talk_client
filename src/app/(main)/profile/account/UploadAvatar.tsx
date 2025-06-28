@@ -71,7 +71,7 @@ function UploadAvatar({ user }: { user: any }) {
           ref={avatarImageRef}
           className="w-16 h-16 object-cover rounded-full my-2 mx-4"
           src={
-            currentImage && currentImage.trim() !== ""
+            (currentImage || "").trim() !== ""
               ? currentImage
               : "https://static-00.iconduck.com/assets.00/avatar-default-icon-2048x2048-h6w375ur.png"
           }

@@ -195,7 +195,7 @@ function QuestionDetail() {
                                 src={
                                   user?.image || "/images/avatar_default.jpg"
                                 }
-                                alt={user?.id}
+                                alt={user?.id ? user?.username : "avatar user"}
                               />
                             </div>
                             <div className="flex-1 block relative ">
