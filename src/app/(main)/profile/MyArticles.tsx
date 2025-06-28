@@ -4,6 +4,7 @@ import { getArticlesByUserThunk } from "@/stores/thunks/article";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Link from "next/link";
 
 function MyArticles() {
   const dispacth = useAppDispatch();
@@ -46,11 +47,11 @@ function MyArticles() {
                 </ReactMarkdown>
               </div>
               <button>
-                <a href={`http://localhost:3000/home/${item?.slug}`}>
+                <Link href={`/home/${item?.slug}`}>
                   <p className="uppercase text-xl p-3 border-2 border-gray-400 hover:opacity-70 tablet:text-base tablet:p-2">
                     Đọc Thêm
                   </p>
-                </a>
+                </Link>
               </button>
             </div>
           </div>

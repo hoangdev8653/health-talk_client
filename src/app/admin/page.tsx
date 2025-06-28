@@ -18,6 +18,7 @@ import Postcard from "@/app/admin/Postcard";
 import { getLocalStorage } from "@/lib/localStorage";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 function Index() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -69,7 +70,7 @@ function Index() {
         <div className="cursor-pointer  m-2">
           <a title="H7" href="/admin">
             <Image
-              src="/images/who-logo-png_seeklogo-152696-removebg-preview.png"
+              src="/images/logo.png"
               alt="logo"
               width={100}
               height={100}
@@ -106,7 +107,7 @@ function Index() {
             <Link href="/profile" className="font-bold">
               {user?.username}
             </Link>
-            <p className="opacity-60 text-xs">Profile Manager</p>
+            <p className="opacity-60 text-xs my-1">Profile Manager</p>
           </div>
         </div>
       </div>
@@ -118,6 +119,9 @@ function Index() {
                 Hello {user?.username}
               </p>
               <img className="size-7" src="/hello.svg" alt="start Icon" />
+            </div>
+            <div>
+              <ThemeSwitch />
             </div>
           </div>
           {renderContent()}
